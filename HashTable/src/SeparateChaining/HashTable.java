@@ -1,6 +1,6 @@
 package SeparateChaining;
 
-
+// TODO: Implement dynamic resizing when table is 0.75 full
 public final class HashTable<K, V> {
 	private static final int SIZE = 10;
 	private int elementsCount = 0;
