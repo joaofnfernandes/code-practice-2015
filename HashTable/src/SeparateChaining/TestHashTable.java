@@ -39,6 +39,13 @@ public class TestHashTable {
 	}
 	
 	@Test
+	public void deleteWithoutPutting() {
+		HashTable<Integer, String> hashTable = new HashTable<>();
+		String result = hashTable.remove(1);
+		assertEquals("Can't delete element that doesn't exist", null, result);
+	}
+	
+	@Test
 	public void putDeleteWithCollisions() {
 		HashTable<Integer, String> hashTable = new HashTable<>();
 		hashTable.put(1, "A");
@@ -51,6 +58,8 @@ public class TestHashTable {
 	@Test
 	public void testSize(){
 		HashTable<Integer, Integer> hashTable = getHashWithElements(100);
+		hashTable.put(1, 1);
+		hashTable.remove(1);
 		assertEquals("Hash size should be 100", 100, hashTable.size());
 	}
 	
