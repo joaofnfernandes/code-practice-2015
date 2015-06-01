@@ -1,4 +1,4 @@
-package SeparateChaining;
+package separateChaining;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

@@ -1,4 +1,4 @@
-package SeparateChaining;
+package separateChaining;
 
 public class KeyValuePair<K,V> {
 	public K Key;

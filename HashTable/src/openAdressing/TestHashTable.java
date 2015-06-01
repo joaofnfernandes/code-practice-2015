@@ -1,4 +1,4 @@
-package OpenAddressing;
+package openAdressing;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

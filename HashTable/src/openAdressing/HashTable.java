@@ -1,4 +1,4 @@
-package OpenAddressing;
+package openAdressing;
 
 //TODO: implement resizing
 public class HashTable<K,V> {

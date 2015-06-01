@@ -1,4 +1,4 @@
-package SeparateChaining;
+package separateChaining;
 
 // TODO: Implement dynamic resizing when table is 0.75 full
 public final class HashTable<K, V> {

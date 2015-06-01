@@ -1,4 +1,4 @@
-package OpenAddressing;
+package openAdressing;
 
 public class KeyValuePair<K,V> {
 	public K Key;
