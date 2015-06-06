@@ -2,10 +2,7 @@ package reverseString;
 
 public class ReverseString {
 	
-	public static void reverseIterative(char[] s, int length) throws InvalidInputException {
-		if(s[length - 1] != '\0') {
-			throw new InvalidInputException();
-		}
+	public static void reverseIterative(char[] s, int length) {
 		for(int i = 0; i < (length - 2) / 2; i++) {
 			swap(s, i, length - 2 - i );		
 		}
