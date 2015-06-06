@@ -23,4 +23,22 @@ public class TestRemoveDuplicates {
 		assertEquals(new String(expected), new String(input));
 	}
 	
+	@Test
+	public void TestRemoveDuplicatesRecSequence() {
+		char[] input = "aaabbcddd\0".toCharArray();
+		char[] expected = "abcd\0\0\0\0\0\0".toCharArray();
+		RemoveDuplicates.removeRecursive(input, input.length);
+		
+		assertEquals(new String(expected), new String(input));
+	}
+	
+	@Test
+	public void TestRemoveDuplicatesRecNotSequence() {
+		char[] input = "abcabbcaa\0".toCharArray();
+		char[] expected = "abc\0\0\0\0\0\0\0".toCharArray();
+		RemoveDuplicates.removeRecursive(input, input.length);
+				
+		assertEquals(new String(expected), new String(input));
+	}
+	
 }
