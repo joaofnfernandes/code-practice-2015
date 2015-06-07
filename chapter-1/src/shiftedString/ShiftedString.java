@@ -2,6 +2,7 @@ package shiftedString;
 
 import java.util.ArrayList;
 
+//TODO: we don't need all this mess. If s2 is substring of s1+s1, then its a rotation
 public class ShiftedString {
 	
 	public static boolean isShiftedString(String s1, String s2) {
