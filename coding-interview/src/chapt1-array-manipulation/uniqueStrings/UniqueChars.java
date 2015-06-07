@@ -1,4 +1,4 @@
-package stringManipulation;
+package uniqueStrings;
 
 import java.util.Arrays;
 
