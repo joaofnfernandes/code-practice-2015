@@ -128,4 +128,18 @@ public class TestLinkedList {
 		
 	}
 
+	@Test
+	public void TestDeleteInMiddle() {
+		LinkedList<Integer> ints = new LinkedList<Integer>();
+		ints.addLast(1);
+		ints.addLast(2);
+		ints.addLast(3);
+		
+		Node<Integer> node = ints.getNode(1);
+		ints.deleteInMiddle(node);
+		
+		assertThat(ints.size(), is(2));
+		assertThat(ints.getFirst(), is(1));
+		assertThat(ints.getLast(), is(3));
+	}
 }

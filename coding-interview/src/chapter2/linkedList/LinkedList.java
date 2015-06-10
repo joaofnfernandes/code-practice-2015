@@ -59,6 +59,10 @@ public class LinkedList<T> {
 	}
 	
 	public T get(int index) {
+		return getNode(index).value;
+	}
+	
+	protected Node<T> getNode(int index) {
 		index = index <= 0 ? 0 : index;
 		index = index >= size - 1 ? size - 1 : index;
 		
@@ -70,7 +74,7 @@ public class LinkedList<T> {
 				curr = curr.next;
 				index--;
 			}
-			return curr.value;
+			return curr;
 		}
 	}
 
@@ -175,6 +179,14 @@ public class LinkedList<T> {
 		return occurences;
 	}
 	
-	
+	public void deleteInMiddle(Node<T> node) {
+		if(node != null) {
+			if(node.next != null) {
+				node.value = node.next.value;
+				node.next = node.next.next;
+				size--;
+			}
+		}
+	}
 
 }
