@@ -96,6 +96,22 @@ public class TestLinkedList {
 		assertThat(ints.remove(-1), is(firstValue));
 	}
 	
-	
+	@Test
+	public void TestRemoveDuplicates() {
+		LinkedList<Integer> ints = new LinkedList<Integer>();
+		
+		ints.addFirst(1);
+		ints.removeDuplicates();
+		assertThat(ints.size(), is(1));
+		
+		ints.addFirst(1);
+		ints.addFirst(2);
+		ints.addFirst(1); // 1,2,1,1
+		ints.removeDuplicates();
+		assertThat(ints.size(), is(2));
+		assertThat(ints.getFirst(), is(1));
+		assertThat(ints.getLast(), is(2));
+		
+	}
 
 }

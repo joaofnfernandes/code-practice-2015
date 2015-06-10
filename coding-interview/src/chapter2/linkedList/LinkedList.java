@@ -1,5 +1,7 @@
 package chapter2.linkedList;
 
+import java.util.ArrayList;
+
 public class LinkedList<T> {
 	private int size = 0;
 	private Node<T> first, last = null;
@@ -103,18 +105,60 @@ public class LinkedList<T> {
 			curr = first;
 			while(index - 1 != 0) {
 				curr = curr.next;
+				index--;
 			}
 			Node<T> tmp = curr.next;
 			curr.next = curr.next.next;
+			if(curr.next == null) {
+				last = curr;
+			}
 			curr = tmp;
 		}
+		size--;
 		if(size == 1) {
 			last = first;
 		}
-		size--;
 		return curr.value;
 	}
 
+	public void removeDuplicates() {
+		if(first == null) {
+			return;
+		} else {
+			Node<T> curr = first;
+			while(curr != null) {
+				ArrayList<Integer> occurrences = getOccurrences(curr.value);
+				// remove first occurrence, since its the current value
+				occurrences.remove(0);
+				if(occurrences.size() > 0) {
+					int deleted = 0;
+					for(Integer i : occurrences) {
+						remove(i - deleted);
+						deleted++;
+					}
+				}
+				curr = curr.next;
+			}
+		}
+	}
+
+	private ArrayList<Integer> getOccurrences(T value) {
+		ArrayList<Integer> occurences = null;
+		if(first != null) {
+			occurences = new ArrayList<Integer>();
+			Node<T> curr = first;
+			int i = 0;
+			while(curr != null) {
+				if(curr.value.equals(value)) {
+					occurences.add(i);
+				}
+				curr = curr.next;
+				i++;
+			}
+		}
+		return occurences;
+	}
+	
 	
 
 }
