@@ -58,6 +58,22 @@ public class LinkedList<T> {
 		return -1;
 	}
 	
+	public T get(int index) {
+		index = index <= 0 ? 0 : index;
+		index = index >= size - 1 ? size - 1 : index;
+		
+		if(first == null) {
+			return null;
+		} else {
+			Node<T> curr = first;
+			while(index != 0) {
+				curr = curr.next;
+				index--;
+			}
+			return curr.value;
+		}
+	}
+
 	public T getFirst(){
 		return first.value;
 	}

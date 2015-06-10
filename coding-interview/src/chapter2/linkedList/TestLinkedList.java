@@ -54,6 +54,20 @@ public class TestLinkedList {
 	}
 	
 	@Test
+	public void TestGet() {
+		LinkedList<Integer> ints = new LinkedList<Integer>();
+		ints.addFirst(1);
+		ints.addLast(2);
+		
+		assertThat(ints.get(-1), is(1));
+		assertThat(ints.get(0), is(1));
+		
+		assertThat(ints.get(1), is(2));
+		assertThat(ints.get(10), is(2));
+		
+	}
+	
+	@Test
 	public void TestContains() {
 		LinkedList<Integer> ints = new LinkedList<Integer>();
 		Integer value = 1;
