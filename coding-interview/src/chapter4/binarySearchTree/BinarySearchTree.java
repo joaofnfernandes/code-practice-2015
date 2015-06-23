@@ -30,6 +30,25 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		root = delete(root, value);
 	}
 	
+	public String printPreOrder() {
+		StringBuilder builder = new StringBuilder();
+		printPreOrder(root, builder);
+		return builder.toString();
+	}
+	
+	public String printInOrder() {
+		StringBuilder builder = new StringBuilder();
+		printInOrder(root, builder);
+		return builder.toString();
+	}
+	
+	public String printPostOrder() {
+		StringBuilder builder = new StringBuilder();
+		printPostOrder(root, builder);
+		return builder.toString();
+	}
+	
+	
 	
  	private Node<T> insert(Node<T> node, T value) {
 		if(node == null) {
@@ -84,7 +103,6 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		}
 	}
 
-
 	private Node<T> delete(Node<T> node, T value) {
 		if(node == null) {
 			return node;
@@ -109,5 +127,29 @@ public class BinarySearchTree<T extends Comparable<T>> {
 			}
 		}
 		return node;
+	}
+	
+	private void printPreOrder(Node<T> node, StringBuilder builder) {
+		if(node != null) {
+			builder.append(node.value);
+			printPreOrder(node.left, builder);
+			printPreOrder(node.right, builder);
+		}
+	}
+	
+	private void printInOrder(Node<T> node, StringBuilder builder) {
+		if(node != null) {
+			printInOrder(node.left, builder);
+			builder.append(node.value);
+			printInOrder(node.right, builder);
+		}
+	}
+	
+	private void printPostOrder(Node<T> node, StringBuilder builder) {
+		if(node != null) {
+			printPostOrder(node.left, builder);
+			printPostOrder(node.right, builder);
+			builder.append(node.value);
+		}
 	}
 }

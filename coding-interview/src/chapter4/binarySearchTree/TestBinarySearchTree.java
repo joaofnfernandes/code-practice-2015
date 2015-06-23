@@ -62,6 +62,42 @@ public class TestBinarySearchTree {
 		testDeleteWithTwoChildren();
 	}
 	
+	@Test
+	public void TestPrintPreOrder() {
+		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+		int[] values = new int[] {60, 20, 80, 10, 30, 70, 90};
+		String expected = "60201030807090";
+		
+		for(int i = 0; i < values.length; i++) {
+			bst.insert(values[i]);
+		}
+		assertEquals(expected, bst.printPreOrder());
+	}
+	
+	@Test
+	public void TestPrintInOrder() {
+		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+		int[] values = new int[] {60, 20, 80, 10, 30, 70, 90};
+		String expected = "10203060708090";
+		
+		for(int i = 0; i < values.length; i++) {
+			bst.insert(values[i]);
+		}
+		assertEquals(expected, bst.printInOrder());
+	}
+	
+	@Test
+	public void TestPrintPostOrder() {
+		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+		int[] values = new int[] {60, 20, 80, 10, 30, 70, 90};
+		String expected = "10302070908060";
+		
+		for(int i = 0; i < values.length; i++) {
+			bst.insert(values[i]);
+		}
+		assertEquals(expected, bst.printPostOrder());
+	}
+
 	private void testDeleteLeaf() {
 		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
 		int[] values = new int[] 			{60, 	20, 	80, 	10, 30, 	70, 90};
