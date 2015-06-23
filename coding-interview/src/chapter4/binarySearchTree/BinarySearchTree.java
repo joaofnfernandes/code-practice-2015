@@ -26,17 +26,19 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		return min(root, root.value);
 	}
 	
+	public void delete(T value) {
+		root = delete(root, value);
+	}
 	
-	private Node<T> insert(Node<T> node, T value) {
+	
+ 	private Node<T> insert(Node<T> node, T value) {
 		if(node == null) {
 			return new Node<T>(value);
 		} else {
-			if(root.value.compareTo(value) >= 0) {
+			if(node.value.compareTo(value) >= 0) {
 				node.left = insert(node.left, value);
-			} else  if(root.value.compareTo(value) < 0) {
+			} else  if(node.value.compareTo(value) < 0) {
 				node.right = insert(node.right, value);
-			} else {
-				return node;
 			}
 			return node;
 		}
@@ -82,4 +84,30 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		}
 	}
 
+
+	private Node<T> delete(Node<T> node, T value) {
+		if(node == null) {
+			return node;
+		}
+		else if(node.value.compareTo(value) < 0) {
+			node.right = delete(node.right, value);
+		} else if(node.value.compareTo(value) > 0) {
+			node.left = delete(node.left, value);
+		} else {
+			if(node.left == null && node.right == null) {
+				// just make it disappear
+				return null;
+			} else if(node.left == null && node.right != null) {
+				return node.right;
+			} else if(node.left != null && node.right == null) {
+				return node.left;
+			} else {
+				// find in order successor and swap its value
+				T successor = min(node.right, node.value);
+				node.value = successor;
+				delete(node.right, successor);
+			}
+		}
+		return node;
+	}
 }
