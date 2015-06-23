@@ -66,7 +66,7 @@ public class TestBinarySearchTree {
 	public void TestPrintPreOrder() {
 		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
 		int[] values = new int[] {60, 20, 80, 10, 30, 70, 90};
-		String expected = "60201030807090";
+		String expected = "[60,20,10,30,80,70,90]";
 		
 		for(int i = 0; i < values.length; i++) {
 			bst.insert(values[i]);
@@ -78,7 +78,7 @@ public class TestBinarySearchTree {
 	public void TestPrintInOrder() {
 		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
 		int[] values = new int[] {60, 20, 80, 10, 30, 70, 90};
-		String expected = "10203060708090";
+		String expected = "[10,20,30,60,70,80,90]";
 		
 		for(int i = 0; i < values.length; i++) {
 			bst.insert(values[i]);
@@ -90,7 +90,7 @@ public class TestBinarySearchTree {
 	public void TestPrintPostOrder() {
 		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
 		int[] values = new int[] {60, 20, 80, 10, 30, 70, 90};
-		String expected = "10302070908060";
+		String expected = "[10,30,20,70,90,80,60]";
 		
 		for(int i = 0; i < values.length; i++) {
 			bst.insert(values[i]);
