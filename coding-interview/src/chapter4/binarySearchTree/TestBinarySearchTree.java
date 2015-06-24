@@ -98,6 +98,14 @@ public class TestBinarySearchTree {
 		assertEquals(expected, bst.printPostOrder());
 	}
 
+	@Test
+	public void TestIsBalanced() {
+		testBalancedTree();
+		testUnbalancedTreeLeft();
+		testUnbalancedTreeRight();
+	}
+	
+	
 	private void testDeleteLeaf() {
 		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
 		int[] values = new int[] 			{60, 	20, 	80, 	10, 30, 	70, 90};
@@ -192,5 +200,40 @@ public class TestBinarySearchTree {
 				assertTrue(bst.contains(values[i]));
 			}
 		}
+	}
+
+	private void testBalancedTree() {
+		BinarySearchTree<Integer> bt = new BinarySearchTree<>();		
+		int[] values = new int[] {5,3,7,2,4,6,8};
+		
+		for(int i = 0; i < 2; i++) {
+			bt.insert(values[i]);
+		}
+		assertTrue(bt.isBalanced());
+		
+		for(int i = 2; i < values.length; i++) {
+			bt.insert(values[i]);
+		}
+		assertTrue(bt.isBalanced());
+	}
+	
+	private void testUnbalancedTreeLeft() {
+		BinarySearchTree<Integer> bt = new BinarySearchTree<>();		
+		int[] values = new int[] {3,2,1};
+		
+		for(int i = 0; i < values.length; i++) {
+			bt.insert(values[i]);
+		}
+		assertFalse(bt.isBalanced());
+	}
+	
+	private void testUnbalancedTreeRight() {
+		BinarySearchTree<Integer> bt = new BinarySearchTree<>();		
+		int[] values = new int[] {1,2,3};
+		
+		for(int i = 0; i < values.length; i++) {
+			bt.insert(values[i]);
+		}
+		assertFalse(bt.isBalanced());
 	}
 }

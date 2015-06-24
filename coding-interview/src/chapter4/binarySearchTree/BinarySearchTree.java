@@ -54,6 +54,9 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		return builder.toString();
 	}
 	
+	public boolean isBalanced() {
+		return isBalanced(root).isBalanced;
+	}
 	
 	
  	private Node<T> insert(Node<T> node, T value) {
@@ -167,4 +170,36 @@ public class BinarySearchTree<T extends Comparable<T>> {
 			builder.append(node.value);
 		}
 	}
+
+	private BalancedTreeInfo isBalanced(Node<T> node) {
+		if(node == null) {
+			return new BalancedTreeInfo(true, 0);
+		} else {
+			BalancedTreeInfo leftTreeInfo = isBalanced(node.left);
+			if(!leftTreeInfo.isBalanced) {
+				leftTreeInfo.height++;
+				return leftTreeInfo;
+			}
+			BalancedTreeInfo rightTreeInfo = isBalanced(node.right);
+			if(!rightTreeInfo.isBalanced) {
+				rightTreeInfo.height++;
+				return rightTreeInfo;
+			}
+			if(leftTreeInfo.height - rightTreeInfo.height >= 0) {
+				if(leftTreeInfo.height - rightTreeInfo.height > 1) {
+					leftTreeInfo.isBalanced = false;
+				}
+				leftTreeInfo.height++;
+				return leftTreeInfo;
+			} else {
+				if(rightTreeInfo.height - leftTreeInfo.height > 1) {
+					rightTreeInfo.isBalanced = false;
+				}
+				rightTreeInfo.height++;
+				return rightTreeInfo;
+			}
+		}
+	}
+	
+	
 }
