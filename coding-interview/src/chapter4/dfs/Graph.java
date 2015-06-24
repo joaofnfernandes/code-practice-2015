@@ -50,8 +50,12 @@ public class Graph {
 		return bfs(source, value);
 	}
 	
+	public boolean hasPath(int from, int to) {
+		return dfs(from, to);
+	}
+	
 	// iterative DFS
-	public boolean dfs(int source, int value) {
+	private boolean dfs(int source, int value) {
 		Set<Integer> visited = new HashSet<Integer>();
 		Stack<Integer> toVisit = new Stack<Integer>();
 		

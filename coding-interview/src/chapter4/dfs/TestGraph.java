@@ -48,4 +48,13 @@ public class TestGraph {
 		assertTrue(g.bfs(0)); assertTrue(g.bfs(1));
 		assertTrue(g.bfs(2)); assertTrue(!g.bfs(3));
 	}
+
+	public void TestHasPath() {
+		Graph g = new Graph(5);
+		g.addEdge(0, 1); g.addEdge(1, 2); g.addEdge(2, 3); 
+		
+		assertTrue(g.hasPath(0, 1)); assertTrue(g.hasPath(0, 2)); assertTrue(g.hasPath(0, 3));
+		assertFalse(g.hasPath(0, 4));
+	}
+
 }
