@@ -1,7 +1,9 @@
 package chapter4.dfs;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
@@ -44,6 +46,10 @@ public class Graph {
 		return dfs(source, value);
 	}
 	
+	public boolean bfs(int value) {
+		return bfs(source, value);
+	}
+	
 	// iterative DFS
 	public boolean dfs(int source, int value) {
 		Set<Integer> visited = new HashSet<Integer>();
@@ -60,6 +66,28 @@ public class Graph {
 				for(Integer v : getEdges(visiting)) {
 					if(!visited.contains(v)) {
 						toVisit.push(v);
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	private boolean bfs(int source, int value) {
+		Set<Integer> visited = new HashSet<Integer>();
+		Queue<Integer> toVisit = new ArrayDeque<Integer>();
+		
+		toVisit.add(source);
+		
+		while(!toVisit.isEmpty()) {
+			int visiting = toVisit.remove();
+			visited.add(visiting);
+			if(visiting == value) {
+				return true;
+			} else {
+				for(Integer v : getEdges(visiting)) {
+					if(!visited.contains(v)) {
+						toVisit.add(v);
 					}
 				}
 			}
