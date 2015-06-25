@@ -54,6 +54,12 @@ public class Graph {
 		return dfs(from, to);
 	}
 	
+	public Set<Integer> getNodesAtDepth(int depth) {
+		HashSet<Integer> vertices = new HashSet<>();
+		getNodesAtDepth(source, vertices, depth);
+		return vertices;
+	}
+	
 	// iterative DFS
 	private boolean dfs(int source, int value) {
 		Set<Integer> visited = new HashSet<Integer>();
@@ -98,4 +104,17 @@ public class Graph {
 		}
 		return false;
 	}
+
+	private void getNodesAtDepth(int node, HashSet<Integer> vertices, int depth) {
+		if(depth == 0) {
+			vertices.add(node);
+			return;
+		} else {
+			for(Integer vertex : edges.get(node)) {
+				getNodesAtDepth(vertex, vertices, depth - 1);
+			}
+		}
+		
+	}
+
 }
