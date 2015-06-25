@@ -58,6 +58,20 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		return isBalanced(root).isBalanced;
 	}
 	
+	public T getSuccessor(T key) {
+		Node<T> node = getNode(root, key);
+		if(node != null && node.right != null) {
+			T min = min(node.right, node.right.value);
+			// no successor
+			if(node.value.compareTo(min) == 0) {
+				return null;
+			} else {
+				return min;
+			}
+		} else {
+			return null;
+		}
+	}
 	
  	private Node<T> insert(Node<T> node, T value) {
 		if(node == null) {
@@ -72,7 +86,21 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		}
 	}
 
-	private boolean contains(Node<T> node, T value) {
+	private Node<T> getNode(Node<T> node ,T key) {
+		if(node == null) {
+			return null;
+		} else if(node.value.compareTo(key) == 0) {
+			return node;
+		} else {
+			Node<T> leftResult = getNode(node.left, key);
+			if(leftResult != null) {
+				return leftResult;
+			}
+			return getNode(node.right, key);
+		}
+	}
+
+ 	private boolean contains(Node<T> node, T value) {
 		if(node == null) {
 			return false;
 		} else {

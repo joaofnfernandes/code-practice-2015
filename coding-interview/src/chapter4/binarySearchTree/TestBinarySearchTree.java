@@ -105,6 +105,12 @@ public class TestBinarySearchTree {
 		testUnbalancedTreeRight();
 	}
 	
+	@Test
+	public void TestGetSuccessor() {
+		testNoSuccessor();
+		testSuccessorIsRightChild();
+		testSuccessorIsDeep();
+	}
 	
 	private void testDeleteLeaf() {
 		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
@@ -235,5 +241,32 @@ public class TestBinarySearchTree {
 			bt.insert(values[i]);
 		}
 		assertFalse(bt.isBalanced());
+	}
+
+	private void testNoSuccessor() {
+		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+		bst.insert(1);
+		assertEquals(null, bst.getSuccessor(1));
+	}
+	
+	private void testSuccessorIsRightChild() {
+		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+		Integer[] values = new Integer[] {1,2,3,4,5,6};
+		
+		for(Integer value : values) {
+			bst.insert(value);
+		}
+		
+		assertEquals(2, (int)bst.getSuccessor(1));
+	}
+	
+	private void testSuccessorIsDeep() {
+		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+Integer[] values = new Integer[] {1,5,3,3,2};
+		
+		for(Integer value : values) {
+			bst.insert(value);
+		}
+		assertEquals(2, (int)bst.getSuccessor(1));
 	}
 }
