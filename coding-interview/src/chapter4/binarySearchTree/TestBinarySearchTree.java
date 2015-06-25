@@ -112,6 +112,12 @@ public class TestBinarySearchTree {
 		testSuccessorIsDeep();
 	}
 	
+	@Test
+	public void TestIsSubtree() {
+		testIsNotSubtree();
+		testIsSubtree();
+	}
+
 	private void testDeleteLeaf() {
 		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
 		int[] values = new int[] 			{60, 	20, 	80, 	10, 30, 	70, 90};
@@ -262,11 +268,43 @@ public class TestBinarySearchTree {
 	
 	private void testSuccessorIsDeep() {
 		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
-Integer[] values = new Integer[] {1,5,3,3,2};
+		Integer[] values = new Integer[] {1,5,3,3,2};
 		
 		for(Integer value : values) {
 			bst.insert(value);
 		}
 		assertEquals(2, (int)bst.getSuccessor(1));
 	}
+	
+	private void testIsNotSubtree(){
+		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+		Integer[] values = new Integer[] {5,3,7,2,4,6,8};
+		
+		for(Integer value : values) {
+			bst.insert(value);
+		}
+		
+		Node<Integer> longTree = bst.getRoot();
+		Node<Integer> shortTree = new Node<Integer>(0);
+		
+		assertFalse(bst.isSubtree(longTree, shortTree));
+	}
+	
+	private void testIsSubtree() {
+		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+		Integer[] values = new Integer[] {5,3,7,2,4,6,8};
+		
+		for(Integer value : values) {
+			bst.insert(value);
+		}
+		
+		Node<Integer> longTree = bst.getRoot();
+		
+		Node<Integer> shortTree = bst.getNode(3);
+		assertFalse(bst.isSubtree(longTree, shortTree));
+		
+		shortTree = bst.getNode(7);
+		assertFalse(bst.isSubtree(longTree, shortTree));
+	}
+
 }

@@ -1,5 +1,7 @@
 package chapter4.binarySearchTree;
 
+import java.util.Stack;
+
 public class BinarySearchTree<T extends Comparable<T>> {
 	private Node<T> root = null;
 	
@@ -73,19 +75,40 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		}
 	}
 	
- 	private Node<T> insert(Node<T> node, T value) {
-		if(node == null) {
-			return new Node<T>(value);
-		} else {
-			if(node.value.compareTo(value) >= 0) {
-				node.left = insert(node.left, value);
-			} else  if(node.value.compareTo(value) < 0) {
-				node.right = insert(node.right, value);
+	public boolean isSubtree(Node<T> longTree, Node<T> shortTree) {
+		Stack<Node<T>> toVisitInLongTree = new Stack<>();
+		Stack<Node<T>> toVisitInShortTree = new Stack<>();
+		
+		toVisitInLongTree.push(longTree);
+		toVisitInShortTree.push(shortTree);
+		
+		while(!toVisitInShortTree.isEmpty()) {
+			Node<T> longTreeNode = toVisitInLongTree.pop();
+			Node<T> shortTreeNode = toVisitInShortTree.pop();
+			
+			if(longTreeNode.value.compareTo(shortTreeNode.value) != 0) {
+				return false;
 			}
-			return node;
+			
+			// continue along long tree
+			toVisitInLongTree.push(longTreeNode.left);
+			toVisitInLongTree.push(shortTreeNode.right);
+			// continue along short tree
+			toVisitInShortTree.push(shortTreeNode.left);
+			toVisitInShortTree.push(shortTreeNode.right);
 		}
+		return true;
 	}
-
+	
+	public Node<T> getNode(T key) {
+		return getNode(root, key);
+	}
+	
+	public Node<T> getRoot() {
+		return root;
+	}
+	
+	
 	private Node<T> getNode(Node<T> node ,T key) {
 		if(node == null) {
 			return null;
@@ -97,6 +120,21 @@ public class BinarySearchTree<T extends Comparable<T>> {
 				return leftResult;
 			}
 			return getNode(node.right, key);
+		}
+	}
+	
+	
+	
+	private Node<T> insert(Node<T> node, T value) {
+		if(node == null) {
+			return new Node<T>(value);
+		} else {
+			if(node.value.compareTo(value) >= 0) {
+				node.left = insert(node.left, value);
+			} else  if(node.value.compareTo(value) < 0) {
+				node.right = insert(node.right, value);
+			}
+			return node;
 		}
 	}
 
