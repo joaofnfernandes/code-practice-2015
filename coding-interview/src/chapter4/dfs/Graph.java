@@ -60,6 +60,36 @@ public class Graph {
 		return vertices;
 	}
 	
+	//TODO: we aren't setting the source correctly
+	public Graph revert() {
+		Graph g = new Graph(this.nodeCount);
+		
+		for(Set<Integer> vertex : g.edges) {
+			vertex.clear();
+		}
+		for(int i = 0; i < this.edges.size(); i++) {
+			Set<Integer> vertexes = this.edges.get(i);
+			for(Integer edge : vertexes) {
+				g.edges.get(edge).add(i);
+			}
+		}
+		
+		return g;
+	}
+	
+	//TODO: can be optimized if we run DFS at both graphs at same time
+	public int findCommonAncestor(int v1, int v2) {
+		Graph g = revert();
+		Set<Integer> reachableFromV1 = g.dfsIterator(v1);
+		Set<Integer> reacheableFromV2 = g.dfsIterator(v2);
+		for(Integer v1Vertex : reachableFromV1) {
+			if(reacheableFromV2.contains(v1Vertex)) {
+				return v1Vertex;
+			}
+		}
+		return -1;
+	}
+	
 	// iterative DFS
 	private boolean dfs(int source, int value) {
 		Set<Integer> visited = new HashSet<Integer>();
@@ -81,6 +111,24 @@ public class Graph {
 			}
 		}
 		return false;
+	}
+
+	private Set<Integer> dfsIterator(int source) {
+		Set<Integer> visited = new HashSet<Integer>();
+		Stack<Integer> toVisit = new Stack<Integer>();
+		
+		toVisit.push(source);
+		
+		while(!toVisit.isEmpty()) {
+			int visiting = toVisit.pop();
+			visited.add(visiting);
+			for(Integer v : getEdges(visiting)) {
+				if(!visited.contains(v)) {
+					toVisit.push(v);
+				}
+			}
+		}
+		return visited;
 	}
 
 	private boolean bfs(int source, int value) {
