@@ -61,9 +61,15 @@ public class Tests {
 	
 	@Test
 	public void TestCountAbc() {
-		assertEquals(0, countAbc("")); assertEquals(0, countAbc("ab"));
+		// no match
+		assertEquals(0, countAbc(""));
+		assertEquals(0, countAbc("ab"));
 		assertEquals(0, countAbc("abd"));
-		assertEquals(1, countAbc("abc")); assertEquals(1, countAbc("aba"));
+		// one match
+		assertEquals(1, countAbc("abc"));
+		assertEquals(1, countAbc("aba"));
+		// n matches
+		assertEquals(2, countAbc("ababc"));
 		assertEquals(4, countAbc("abcabaabcaba"));
 	}
 	
@@ -241,4 +247,19 @@ public class Tests {
 		assertEquals(13, strDist("hiHellohihihi", "hi"));
 		assertEquals(5, strDist("hiHellohihihi", "hih"));
 	}
+
+	@Test
+	public void TestGroupSum() {
+		// No target
+		assertFalse(groupSum(0, new int[] {}, 5));
+		assertFalse(groupSum(0, new int[] {0}, 5));
+		assertFalse(groupSum(0, new int[] {0,1,2,6}, 5));
+		// One Target
+		assertTrue(groupSum(0, new int[] {5}, 5));
+		assertTrue(groupSum(0, new int[] {1,2,3}, 5));
+		// Multiple Targets
+		assertTrue(groupSum(0, new int[] {0,0,0,0,5,5,5,0,0}, 5));
+		assertTrue(groupSum(0, new int[] {1,2,3,4}, 5));
+	}
+
 }

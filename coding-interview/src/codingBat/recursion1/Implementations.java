@@ -91,7 +91,7 @@ public class Implementations {
 		}
 	}
 
-	
+	/* Counts the number of 'abc' and 'aba' substrings	 */
 	public static int countAbc(String str) {
 		  if(str.isEmpty()) {
 			  return 0;
@@ -100,7 +100,7 @@ public class Implementations {
 		  } else {
 			  if(str.charAt(0) == 'a' && str.charAt(1) == 'b' &&
 					  (str.charAt(2) == 'a' || str.charAt(2) == 'c')) {
-				  return 1 + countAbc(str.substring(3));
+				  return 1 + countAbc(str.substring(1));
 			  } else {
 				  return countAbc(str.substring(1));
 			  }
@@ -369,7 +369,19 @@ public class Implementations {
 		}
 	}
 
-
+	/** Checks if its possible to sum numbers in an array, so they sum into a target value */
+	public static boolean groupSum(int start, int[] nums, int target) {
+		if(target == 0) {
+			return true;
+		} if(nums == null || start >= nums.length) {
+			return false;
+		} else {
+			// Explore two paths: one we use the number, other we don't
+			return groupSum(start + 1, nums, target - nums[start]) ||
+					groupSum(start + 1, nums, target);
+		}
+	}
+	
 
 
 }
