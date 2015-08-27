@@ -262,4 +262,85 @@ public class Tests {
 		assertTrue(groupSum(0, new int[] {1,2,3,4}, 5));
 	}
 
+	@Test
+	public void TestGroupSum5() {
+		// No target
+		assertFalse(groupSum5(0, new int[] {}, 5));
+		assertFalse(groupSum5(0, new int[] {1,2,6}, 5));
+		assertFalse(groupSum5(0, new int[] {1,2,6}, 5));
+		assertFalse(groupSum5(0, new int[] {1,2,5,5}, 5));
+		assertFalse(groupSum5(0, new int[] {5,1,10}, 6));
+		// One target
+		assertTrue(groupSum5(0, new int[] {5}, 5));
+		assertTrue(groupSum5(0, new int[] {5,1,1}, 6));
+		// Multiple targets
+		assertTrue(groupSum5(0, new int[] {1,2,3,4}, 5));
+		assertTrue(groupSum5(0, new int[] {5,1,5,1,10,1}, 20));
+	}
+
+	@Test
+	public void TestSplitOdd10() {
+		// Cannot split
+		assertFalse(splitOdd10(new int[] {0}));
+		assertFalse(splitOdd10(new int[] {1,1}));
+		// Can split
+		assertTrue(splitOdd10(new int[] {1}));
+		assertTrue(splitOdd10(new int[] {5,10}));
+		assertTrue(splitOdd10(new int[] {1,10,1,1}));
+	}
+
+	@Test
+	public void TestGroupSum6() {
+		// Can't sum
+		assertFalse(groupSum6(0, new int[] {}, 10));
+		assertFalse(groupSum6(0, new int[] {1,2,3}, 10));
+		assertFalse(groupSum6(0, new int[] {6,6}, 6));
+		// Can sum
+		assertTrue(groupSum6(0, new int[] {1,2,3,4}, 5));
+		assertTrue(groupSum6(0, new int[] {1,2,6,6}, 12));
+	}
+	
+	@Test
+	public void TestGroupSumClump() {
+		// Can't sum
+		assertFalse(groupSumClump(0, new int[] {}, 1));
+		assertFalse(groupSumClump(0, new int[] {1,1,1}, 1));
+		// Can sum
+		assertTrue(groupSumClump(0, new int[] {1,2,1,1,1,1}, 2));
+		assertTrue(groupSumClump(0, new int[] {1,2,1,1,1,1}, 4));
+	}
+	
+	@Test
+	public void TestSplit53() {
+		// Can't split
+		assertFalse(split53(new int[] {}));
+		assertFalse(split53(new int[] {5}));
+		assertFalse(split53(new int[] {3,3,   5,5}));
+		// Can split
+		assertTrue(split53(new int[] {2,3,    5}));
+		assertTrue(split53(new int[] {3,3,    1,5}));
+		assertTrue(split53(new int[] {1,2,3,  1,5}));
+	}
+	
+	@Test
+	public void TestGroupNoAdj() {
+		// Can't sum
+		assertFalse(groupNoAdj(0, new int[] {}, 10));
+		assertFalse(groupNoAdj(0, new int[] {1}, 10));
+		assertFalse(groupNoAdj(0, new int[] {9,1,2}, 10));
+		// Can sum
+		assertTrue(groupNoAdj(0, new int[] {10}, 10));
+		assertTrue(groupNoAdj(0, new int[] {9,1,1}, 10));
+		assertTrue(groupNoAdj(0, new int[] {9,1,9,1,1}, 10));
+	}
+	
+	@Test
+	public void TestSplitArray() {
+		// Can't split
+		assertFalse(splitArray(new int[] {1}));
+		assertFalse(splitArray(new int[] {1,2}));
+		// Can split
+		assertTrue(splitArray(new int[] {}));
+		assertTrue(splitArray(new int[] {1,2,3}));
+	}
 }

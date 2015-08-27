@@ -373,7 +373,7 @@ public class Implementations {
 	public static boolean groupSum(int start, int[] nums, int target) {
 		if(target == 0) {
 			return true;
-		} if(nums == null || start >= nums.length) {
+		} if(nums == null || start >= nums.length || target < 0) {
 			return false;
 		} else {
 			// Explore two paths: one we use the number, other we don't
@@ -382,6 +382,162 @@ public class Implementations {
 		}
 	}
 	
+	/*
+	 * Given an array of ints, is it possible to choose a group of some of the ints,
+	 * such that the group sums to the given target with these additional constraints: 
+	 *  - all multiples of 5 in the array must be included in the group.
+	 *  If the value immediately following a multiple of 5 is 1, it must not be chosen.
+	 */
+	public static boolean groupSum5(int start, int[] nums, int target) {
+		  if(target == 0 && start == nums.length) {
+			  return true;
+		  } if(nums == null || start >= nums.length || target < 0 ) {
+			  return false;
+		  } else {
+			  // Use the number if it's a multiple of 5
+			  if(nums[start] % 5 == 0) {
+				  return groupSum5(start + 1, nums, target - nums[start]);
+			  } else if(nums[start] == 1 && start > 0 && nums[start - 1] % 5 == 0) {
+				  // Don't use 1's if they follow a 5 multiple
+				  return groupSum5(start + 1, nums, target);
+			  } else {
+				  // Explore two paths: one we use the number, other we don't
+				  return groupSum5(start + 1, nums, target - nums[start]) ||
+						  groupSum5(start + 1, nums, target);
+			  }
+		  }
+	}
 
+	/*
+	 * Given an array of ints, is it possible to divide the ints into two groups,
+	 * so that the sum of one group is a multiple of 10, and the sum of the other group is odd.
+	 * Every int must be in one group or the other.
+	 */
+	public static boolean splitOdd10(int[] nums) {
+		  return splitOdd10(0, nums, 0, 0);
+	}
+	
+	private static boolean splitOdd10(int start, int[] nums, int multiple10, int odd) {
+		if(start < 0 || nums == null || nums.length == 0) {
+			return false;
+		} else if(start == nums.length) {
+			return (multiple10 % 10 == 0) && (odd % 2 == 1);
+		} else {
+			return splitOdd10(start + 1, nums, multiple10 + nums[start], odd) ||
+					splitOdd10(start + 1, nums, multiple10, odd + nums[start]);
+		}
+	}
+	
+	/*
+	 * Given an array of ints, is it possible to choose a group of some of the ints,
+	 * beginning at the start index, such that the group sums to the given target?
+	 * However, with the additional constraint that all 6's must be chosen
+	 */
+	public static boolean groupSum6(int start, int[] nums, int target) {
+		  if(start < 0 || start > nums.length || nums == null || target < 0) {
+			  return false;
+		  } else if(start == nums.length) {
+			  return target == 0;
+		  } if(nums[start] == 6) {
+			  // If the number is 6, use it
+			  return groupSum6(start + 1, nums, target - nums[start]);
+		  } else {
+			  // Try the path were the nbr is include and the path number not included
+			  return groupSum6(start + 1, nums, target - nums[start]) ||
+					  groupSum6(start + 1, nums, target);
+		  }
+	}
+
+	/*
+	 * Given an array of ints, is it possible to choose a group of some of the ints,
+	 * such that the group sums to the given target, with this additional constraint:
+	 * if there are numbers in the array that are adjacent and the identical value,
+	 * they must either all be chosen, or none of them chosen
+	 */
+	public static boolean groupSumClump(int start, int[] nums, int target) {
+		if(start < 0 || start > nums.length || nums == null || target < 0) {
+			return false;
+		} else if(start == nums.length) {
+			return target == 0;
+		} else {
+			// Compute adjacent numbers that have the same value
+			int adjacents = 1;
+			while(start + adjacents < nums.length && nums[start + adjacents] == nums[start]) {
+				adjacents++;
+			}
+			// Try path where we use the number, and path that we don't
+			return groupSumClump(start + adjacents, nums, target - nums[start] * adjacents) ||
+					groupSumClump(start + adjacents, nums, target);
+		}
+	}
+	
+	/*
+	 * Given an array of ints, is it possible to divide the ints into two groups,
+	 * so that the sum of the two groups is the same, with these constraints:
+	 * all the values that are multiple of 5 must be in one group,
+	 * and all the values that are a multiple of 3 (and not a multiple of 5) must be in the other
+	 */
+	public static boolean split53(int[] nums) {
+		  return split53(0, nums, 0, 0);
+	}
+	
+	private static boolean split53(int start, int[] nums, int sumGroup1, int sumGroup2) {
+		if(start < 0 || start > nums.length || nums == null || nums.length < 1) {
+			return false;
+		} if(start == nums.length) {
+			return sumGroup1 == sumGroup2;
+		} else {
+			// Multiples of 5 go in group 1
+			if(nums[start] % 5 == 0) {
+				return split53(start + 1, nums, sumGroup1 + nums[start], sumGroup2);
+			} else if(nums[start] % 3 == 0) {
+				// Multiples of 3 go in group 2
+				return split53(start + 1, nums, sumGroup1, sumGroup2 + nums[start]);
+			} else {
+				// Try path where number is added to group 1, and path for group 2
+				return split53(start + 1, nums, sumGroup1 + nums[start], sumGroup2) ||
+						split53(start + 1, nums, sumGroup1, sumGroup2 + nums[start]);
+			}
+		}
+	}
+
+	/*
+	 * Given an array of ints, is it possible to choose a group of some of the ints,
+	 * such that the group sums to the given target with this additional constraint:
+	 * If a value in the array is chosen to be in the group, the value immediately
+	 * following it in the array must not be chosen.
+	 */
+	public static boolean groupNoAdj(int start, int[] nums, int target) {
+		if(target == 0) {
+			return true;
+		} else if(start < 0 || start >= nums.length || nums == null || target < 0) {
+			return false;
+		} else {
+			// Try path where number is added, and where number is discarded
+			return groupNoAdj(start + 2, nums, target - nums[start]) ||
+					groupNoAdj(start + 1, nums, target); 
+		}
+	}
+
+	/*
+	 * Given an array of ints, is it possible to divide the ints into two groups,
+	 * so that the sums of the two groups are the same.
+	 * Every int must be in one group or the other.
+	 */
+	public static boolean splitArray(int[] nums) {
+		  return splitArray(0, nums, 0, 0);
+	}
+	
+	private static boolean splitArray(int start, int[] nums, int sumGroup1, int sumGroup2) {
+		if(start < 0 || start > nums.length || nums == null) {
+			return false;
+		} else if(start == nums.length) {
+			return sumGroup1 == sumGroup2;
+		} else {
+			// Try path where nbr is added to group 1, and path number added to group 2
+			return splitArray(start + 1, nums, sumGroup1 + nums[start], sumGroup2) ||
+					splitArray(start + 1, nums, sumGroup1, sumGroup2 + nums[start]);
+		}
+	}
 
 }
