@@ -1,6 +1,6 @@
-package chapter9.bubbleSort;
+package chapter9.sorting;
 
-public class SelectionSort extends AbstractSort {
+public class SelectionSort extends AbstractSort{
 
 	@Override
 	public void Sort(int[] nums) {

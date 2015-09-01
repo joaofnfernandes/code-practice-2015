@@ -1,4 +1,4 @@
-package chapter9.bubbleSort;
+package chapter9.sorting;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

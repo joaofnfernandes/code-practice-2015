@@ -1,4 +1,4 @@
-package chapter9.bubbleSort;
+package chapter9.sorting;
 
 public abstract class AbstractSort {
 
