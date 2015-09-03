@@ -25,6 +25,12 @@ public class TestSorting {
 		InsertionSort sort = new InsertionSort();
 		runAllSortingTests(sort);
 	}
+		
+	@Test
+	public void TestQuickSort() {
+		Quicksort sort = new Quicksort();
+		runAllSortingTests(sort);
+	}
 	
 	private void runAllSortingTests(AbstractSort sort) {
 		testAlreadySorted(sort);
@@ -36,7 +42,6 @@ public class TestSorting {
 	
 	private void testAlreadySorted(AbstractSort sort) {
 		int[] arr = makeSortedArray(ARRAY_TEST_SIZE);
-		
 		sort.Sort(arr);
 		assertTrue(isSorted(arr));
 	}
