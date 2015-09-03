@@ -59,13 +59,7 @@ public class TestSorting {
 	}
 	
 	private void testShuffled(AbstractSort sort) {
-		int[] arr = makeSortedArray(ARRAY_TEST_SIZE);
-		int randomIndex;
-		for (int i = 0; i < arr.length; i++) {
-			randomIndex = (int)((arr.length - 1) * Math.random());
-			sort.swap(arr, i, randomIndex);
-		}
-		
+		int[] arr = new int[] {2, 0, 9, 1, 7, 3, 8, 5, 6, 4};
 		sort.Sort(arr);
 		assertTrue(isSorted(arr));
 	}
