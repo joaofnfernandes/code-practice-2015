@@ -30,8 +30,6 @@ public class Percolation {
         BOTTOM = N * N + 1;
 
         openGhostCells();
-        connectGhostTopWithTopRow();
-        connectGhostBottomWithBottomRow();
     }
 
     // open site (row i, column j) if it is not open already
@@ -82,20 +80,7 @@ public class Percolation {
         }
         return i * N + j;
     }
-    
-    private void connectGhostTopWithTopRow() {
-        for (int j = 0; j < N; j++) {
-            ufWithGhostCells.union(TOP, getCellId(0, j));
-            ufNoGhostCells.union(TOP, getCellId(0, j));
-        }
-    }
-    
-    private void connectGhostBottomWithBottomRow() {
-        for (int j = 0; j < N; j++) {
-            ufWithGhostCells.union(BOTTOM, getCellId(N - 1, j));
-        }
-    }
-    
+
     private void openGhostCells() {
         cellState[TOP] = OPEN;
         cellState[BOTTOM] = OPEN;
@@ -123,6 +108,17 @@ public class Percolation {
         if(i + 1 < N && cellState[getCellId(i + 1, j)]) {
             ufWithGhostCells.union(cellId, getCellId(i + 1, j));
             ufNoGhostCells.union(cellId, getCellId(i + 1, j));
+        }
+        
+        // if cell in top row, connect with TOP ghost cell
+        if(i == 0) {
+            ufWithGhostCells.union(TOP, cellId);
+            ufNoGhostCells.union(TOP, cellId);
+        }
+        
+        // if cell in bottom row, connect with BOTTOM ghost cell
+        if(i == N - 1) {
+            ufWithGhostCells.union(BOTTOM, cellId);
         }
     }
 }
