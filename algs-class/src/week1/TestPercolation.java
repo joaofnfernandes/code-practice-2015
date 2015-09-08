@@ -1,6 +1,8 @@
 package week1;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import edu.princeton.cs.algs4.In;
 import static org.junit.Assert.*;
@@ -8,6 +10,28 @@ import static org.junit.Assert.*;
 public class TestPercolation {
 
     private static final String PATH = System.getenv("TEST_RESOURCES");
+    
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
+
+
+    @Test
+    public void TestOffByOneLowIndex() {
+        int N = 2;
+        Percolation perc = new Percolation(N);
+        
+        exception.expect(IndexOutOfBoundsException.class);
+        perc.open(0, 0);
+    }
+    
+    @Test
+    public void TestOffByOneHighIndex() {
+        int N = 2;
+        Percolation perc = new Percolation(N);
+        
+        exception.expect(IndexOutOfBoundsException.class);
+        perc.open(3, 3);
+    }
     
     @Test
     public void Test1NoPerc() {
