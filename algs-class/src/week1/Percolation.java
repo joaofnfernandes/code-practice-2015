@@ -20,6 +20,9 @@ public class Percolation {
 
     // Create N-by-N grid, with all sites blocked
     public Percolation(int N) {
+        if (N <= 0) {
+            throw new IllegalArgumentException();
+        }
         // We always add two extra "ghost" cells. N-2: ghost top cell, N-1:
         // ghost bottom cell
         this.N = N;
