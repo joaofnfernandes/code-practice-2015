@@ -14,6 +14,11 @@ public class TestPercolation {
     @Rule
     public final ExpectedException exception = ExpectedException.none();
 
+    @Test
+    public void TestInvalidConstructor() {
+        exception.expect(IllegalArgumentException.class);
+        new Percolation(0);
+    }
 
     @Test
     public void TestOffByOneLowIndex() {
