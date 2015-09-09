@@ -62,7 +62,6 @@ public class PercolationStats {
 
     private double runSimulation() {
         Percolation perc = new Percolation(N);
-        StdRandom.setSeed(System.currentTimeMillis());
 
         int i, j, openCells = 0;
         while (!perc.percolates()) {
