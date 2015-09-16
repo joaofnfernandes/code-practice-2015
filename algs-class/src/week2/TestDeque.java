@@ -149,4 +149,13 @@ public class TestDeque {
             assertEquals(N[i], (int)iter.next());
         }
     }
+
+    @Test
+    public void testRemoveFromIterator() {
+        Deque<Integer> d = new Deque<Integer>();
+        d.addFirst(1);
+        Iterator<Integer> iter = d.iterator();
+        exception.expect(UnsupportedOperationException.class);
+        iter.remove();
+    }
 }
