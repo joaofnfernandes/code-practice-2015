@@ -18,21 +18,15 @@ public class Subset {
         }
         In in = new In();
         Out out = new Out();
-        
         RandomizedQueue<String> rq = new RandomizedQueue<>();
-        synchronized (rq) {
-            try {
-                rq.wait(1000);
-            } catch (InterruptedException e) {
-                // do nothing
-            }
-        }
         while (!in.isEmpty()) {
             rq.enqueue(in.readString());
         }
-        Iterator<String> iter = rq.iterator();
-        for (int i = 0; i < k && iter.hasNext(); i++) {
-            out.println(iter.next());
+        for(String s : rq) {
+            out.println(s);
+            if(--k <= 0) {
+                break;
+            }
         }
     }
 }
