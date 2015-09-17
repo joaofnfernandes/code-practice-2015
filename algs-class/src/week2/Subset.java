@@ -1,7 +1,5 @@
 package week2;
 
-import java.util.Iterator;
-
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Out;
 
@@ -22,9 +20,9 @@ public class Subset {
         while (!in.isEmpty()) {
             rq.enqueue(in.readString());
         }
-        for(String s : rq) {
+        for (String s : rq) {
             out.println(s);
-            if(--k <= 0) {
+            if (--k <= 0) {
                 break;
             }
         }
