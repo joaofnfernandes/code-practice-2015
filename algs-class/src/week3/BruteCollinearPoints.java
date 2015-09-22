@@ -24,12 +24,16 @@ public class BruteCollinearPoints {
         Double slopeIJ, slopeIK, slopeIW;
         for (int i = 0; i < points.length - 3; i++) {
             for (int j = i + 1; j < points.length - 2; j++) {
+                slopeIJ = points[i].slopeTo(points[j]);
                 for (int k = j + 1; k < points.length - 1; k++) {
+                    slopeIK = points[i].slopeTo(points[k]);
+                    // if 3 points are not collinear, we don't need to check 4th point
+                    if(!slopeIJ.equals(slopeIK)){
+                        continue;
+                    }
                     for (int w = k + 1; w < points.length; w++) {
-                        slopeIJ = points[i].slopeTo(points[j]);
-                        slopeIK = points[i].slopeTo(points[k]);
                         slopeIW = points[i].slopeTo(points[w]);
-                        // I and W are collinear
+                        // I and W are collinear and not the same point
                         if(slopeIJ.equals(slopeIK) && slopeIJ.equals(slopeIW) && 
                                 slopeIJ.compareTo(Double.NEGATIVE_INFINITY) != 0) {
                             pointList.add(new LineSegment(points[i], points[w]));
