@@ -27,7 +27,7 @@ public class TestSubset {
 
         String result = executeSubset(args, input);
 
-        assertTrue("Result should be AB or BA", result.matches("^(A\nB)|(B\nA)$"));
+        assertTrue("Result should be AB or BA, but was \"" + result + "\"", result.matches("^(A\nB)|(B\nA)$"));
     }
 
     @Test
@@ -37,7 +37,7 @@ public class TestSubset {
 
         String result = executeSubset(args, input);
 
-        assertTrue("Result should be XYZ", result.matches("^.\n.\n.$"));
+        assertTrue("Result should be XYZ, but was \"" + result + "\"" , result.matches("^.\n.\n.$"));
     }
 
     private String executeSubset(String[] args, String input) {
@@ -50,6 +50,7 @@ public class TestSubset {
         ByteArrayInputStream clientInStream = createInStreamWithContent(input);
         ByteArrayOutputStream clientOutStream = new ByteArrayOutputStream();
         PrintStream clientPrintStream = new PrintStream(clientOutStream);
+        
         // Execute client, and get what it wrote to standard input
         try {
             System.setOut(clientPrintStream);
