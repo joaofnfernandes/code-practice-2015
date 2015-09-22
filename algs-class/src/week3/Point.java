@@ -12,7 +12,7 @@ import edu.princeton.cs.algs4.StdDraw;
 
 public class Point implements Comparable<Point> {
     private static final int RADIUS = 1;
-    private int x, y;
+    public int x, y;
     
     // constructs the point (x, y)
     public Point(int x, int y){
@@ -77,7 +77,7 @@ public class Point implements Comparable<Point> {
         if(this.x == that.x) {
             return Double.POSITIVE_INFINITY;
         }
-        return (that.y - this.y) / (that.x - this.x);
+        return (that.y - this.y) / (double)(that.x - this.x);
     }
     
     // compare two points by slopes they make with this point
