@@ -3,6 +3,7 @@ package week3;
 import java.util.Comparator;
 
 import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdRandom;
 
 /*
 
@@ -11,7 +12,7 @@ import edu.princeton.cs.algs4.StdDraw;
  */
 
 public class Point implements Comparable<Point> {
-    private static final int RADIUS = 1;
+    private static final int RADIUS = 50;
     public int x, y;
     
     // constructs the point (x, y)
@@ -22,7 +23,8 @@ public class Point implements Comparable<Point> {
 
     // draws this point
     public void draw(){
-        StdDraw.filledCircle(x, y, RADIUS);
+        //StdDraw.point(x, y);
+        StdDraw.circle(x, y, RADIUS);
     }
 
     // draws the line segment from this point to that point
@@ -96,25 +98,8 @@ public class Point implements Comparable<Point> {
         public int compare(Point p1, Point p2) {
             double slope01 = slopeTo(p1);
             double slope02 = slopeTo(p2);
-            // same point
-            if(compareTo(p1) == 0 && compareTo(p2) == 0) {
-                return Integer.MIN_VALUE;
-            }
-            // Collinear horizontal points
-            if(slope01 == 0 && slope02 == 0) {
-                return 0;
-            }
-            // Collinear vertical points
-            if(slope01 == Double.POSITIVE_INFINITY && slope02 == Double.POSITIVE_INFINITY) {
-                return Integer.MAX_VALUE;
-            }
-            if(slope01 < slope02) {
-                return -1;
-            } else if(slope01 > slope02) {
-                return 1;
-            } else {
-                return 0;
-            }
+
+            return Double.compare(slope01, slope02);
         }
         
     }

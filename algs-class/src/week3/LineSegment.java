@@ -12,10 +12,14 @@ public class LineSegment {
 
     // draws this line segment
     public   void draw(){
-        StdDraw.line(p.x, p.y, q.x, q.y);
+        p.drawTo(q);
     }
     
     public String toString(){
-        return String.format("%s-%s", p.toString(), q.toString());
+        return p + " -> " + q;
+    }
+    
+    public int hashCode() {
+        throw new UnsupportedOperationException();
     }
  }

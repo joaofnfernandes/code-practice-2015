@@ -12,8 +12,7 @@ import java.util.ArrayList;
     in the worst case and it should use space proportional to N plus the number of line segments returned.
  */
 public class BruteCollinearPoints {
-    public static final double threshold = 0.000001;
-    ArrayList<LineSegment> pointList = new ArrayList<>();
+    ArrayList<LineSegment> segments = new ArrayList<>();
     
     // finds all line segments containing 4 points
     public BruteCollinearPoints(Point[] points){
@@ -33,10 +32,10 @@ public class BruteCollinearPoints {
                     }
                     for (int w = k + 1; w < points.length; w++) {
                         slopeIW = points[i].slopeTo(points[w]);
-                        // I and W are collinear and not the same point
+                        // points are collinear but not the same point
                         if(slopeIJ.equals(slopeIK) && slopeIJ.equals(slopeIW) && 
                                 slopeIJ.compareTo(Double.NEGATIVE_INFINITY) != 0) {
-                            pointList.add(new LineSegment(points[i], points[w]));
+                            addSegmentIfUnique(new LineSegment(points[i], points[w]));
                         }
                         
                     }
@@ -48,12 +47,48 @@ public class BruteCollinearPoints {
     
     // the number of line segments
     public int numberOfSegments(){
-        return pointList.size();
+        return segments.size();
     }
     
     // the line segments
     public LineSegment[] segments(){
-        LineSegment[] segments = new LineSegment[pointList.size()];
-        return pointList.toArray(segments);
+        LineSegment[] arr = new LineSegment[segments.size()];
+        return segments.toArray(arr);
+    }
+    
+    private void addSegmentIfUnique(LineSegment s) {
+        // if is same point, don't add it
+        if(Double.compare(getLineSlope(s), Double.NEGATIVE_INFINITY) == 0) {
+            return;
+        }
+        int i = 0;
+        double segment1Slope = 0, segment2Slope = 0;
+        for (i = 0; i < segments.size(); i++) {
+            segment1Slope = getLineSlope(segments.get(i));
+            segment2Slope = getLineSlope(s);
+            
+            // if segment has same slope and starts at same point, update with longer segment
+            if(Double.compare(segment1Slope, segment2Slope) == 0 &&
+                    (segments.get(i).p.compareTo(s.q) == 0 || 
+                    segments.get(i).q.compareTo(s.q) == 0)) {
+                segments.set(i, s);
+                return;
+            }
+        }
+        segments.add(s);
+    }
+    
+    private double euclideanDistance(Point p, Point q) {
+        return Math.sqrt(Math.pow((q.x - p.x), 2) + Math.pow((q.y - p.y), 2));
+    }
+    
+    private int lineLengthComparator(LineSegment s1, LineSegment s2) {
+        double lengthS1 = euclideanDistance(s1.p, s1.q);
+        double lengthS2 = euclideanDistance(s2.p, s2.q);
+        return Double.compare(lengthS1, lengthS2);
+    }
+    
+    private double getLineSlope(LineSegment s) {
+        return s.p.slopeTo(s.q);
     }
  }
