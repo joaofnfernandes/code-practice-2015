@@ -1,23 +1,40 @@
-package week3;
+package week3.tests;
 
+import java.util.Arrays;
+
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import week3.FastCollinearPoints;
+import week3.LineSegment;
+import week3.Point;
 
 import edu.princeton.cs.algs4.In;
 import static org.junit.Assert.*;
 
-public class TestBruteCollinearPoints {
+public class TestFastCollinearPoints {
     
     private static final String PATH = System.getenv("TEST_RESOURCES");
-    
-
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
     
     @Test
-    // multiple times the same point, doesn't make a line
-    public void TestSamePoint() {
+    public void Test5HorizontalLines() {
+        final String testFile = PATH + "algs-class/horizontal5.txt";
+        Point[] points = readTestFile(testFile);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
+        LineSegment[] result = collinearPoints.segments();
+        assertEquals(5, result.length);
+    }
+    
+    @Test
+    public void TestExceptionOnDuplicatePoint() {
         final String testFile = PATH + "same-point.txt";
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
-        assertEquals(0, collinearPoints.numberOfSegments());
+        exception.expect(IllegalArgumentException.class);
+        @SuppressWarnings("unused")
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
     }
     
     @Test
@@ -61,34 +78,50 @@ public class TestBruteCollinearPoints {
         test5DiagonalPoints();
     }
     
+    @Test
+    // Checks that data structure doesn't change state of arguments
+    public void TestDoesntMutate() {
+        Point[] originalInput = new Point[] {
+                new Point(0, 3),
+                new Point(0, 2),
+                new Point(0, 1),
+                new Point(0, 0),
+        };
+        Point[] input = Arrays.copyOf(originalInput, originalInput.length);
+        @SuppressWarnings("unused")
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(input);
+        assertTrue("Data structure shouldn't mutate input",
+                    isSameArray(originalInput, input));
+    }
+    
     private void test1Point(){
         final String testFile = PATH + "input1.txt";
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
         assertEquals(0, collinearPoints.numberOfSegments());
     }
     private void test2Points(){
         final String testFile = PATH + "input2.txt";
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
         assertEquals(0, collinearPoints.numberOfSegments());
     }
     private void test3HorizontalPoints(){
         final String testFile = PATH + "input3-horizontal.txt";
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
         assertEquals(0, collinearPoints.numberOfSegments());
     }
     private void test3VerticalPoints(){
         final String testFile = PATH + "input3-vertical.txt";
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
         assertEquals(0, collinearPoints.numberOfSegments());
     }
     private void test3DiagonalPoints(){
         final String testFile = PATH + "input3-diag.txt";
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
         assertEquals(0, collinearPoints.numberOfSegments());
     }
     
@@ -99,10 +132,13 @@ public class TestBruteCollinearPoints {
         final LineSegment expectedSegment = new LineSegment(p, q);
         
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
         
         assertEquals(1, collinearPoints.numberOfSegments());
-        assertTrue(isSameLineSegment(expectedSegment, collinearPoints.segments()[0]));
+        LineSegment result = collinearPoints.segments()[0];
+        assertTrue(String.format("Expected %s, but was %s", expectedSegment, result),
+                isSameLineSegment(expectedSegment, result));
+        
 
     }
     private void test4VerticalPoints(){
@@ -112,7 +148,7 @@ public class TestBruteCollinearPoints {
         final LineSegment expectedSegment = new LineSegment(p, q);
         
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
         
         assertEquals(1, collinearPoints.numberOfSegments());
         assertTrue(isSameLineSegment(expectedSegment, collinearPoints.segments()[0]));
@@ -125,7 +161,7 @@ public class TestBruteCollinearPoints {
         final LineSegment expectedSegment = new LineSegment(p, q);
         
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
         
         assertEquals(1, collinearPoints.numberOfSegments());
         assertTrue(isSameLineSegment(expectedSegment, collinearPoints.segments()[0]));
@@ -139,7 +175,7 @@ public class TestBruteCollinearPoints {
         };
         
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
         
         assertEquals(2, collinearPoints.numberOfSegments());
         assertTrue(areSameSegments(segments, collinearPoints.segments()));
@@ -152,7 +188,7 @@ public class TestBruteCollinearPoints {
         };
         
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
         
         assertEquals(2, collinearPoints.numberOfSegments());
         assertTrue(areSameSegments(segments, collinearPoints.segments()));
@@ -165,13 +201,13 @@ public class TestBruteCollinearPoints {
         };
         
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
         
         assertEquals(2, collinearPoints.numberOfSegments());
         assertTrue(areSameSegments(segments, collinearPoints.segments()));
     }
     
-    public void test2IntersectingSegments90deg(){
+    private void test2IntersectingSegments90deg(){
         final String testFile = PATH + "input4-intersecting-90deg.txt";
         final LineSegment[] segments = new LineSegment[] {
                 new LineSegment(new Point(-1, 0), new Point(2, 0)),
@@ -179,63 +215,63 @@ public class TestBruteCollinearPoints {
         };
         
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
         
         assertEquals(2, collinearPoints.numberOfSegments());
         assertTrue(areSameSegments(segments, collinearPoints.segments()));
     }
-    public void test2IntersectingSegments45deg(){
+    private void test2IntersectingSegments45deg(){
         final String testFile = PATH + "input4-intersecting-45deg.txt";
-        final LineSegment[] segments = new LineSegment[] {
-                new LineSegment(new Point(0, -1), new Point(0, 1)),
+        final LineSegment[] expectedSegments = new LineSegment[] {
+                new LineSegment(new Point(0, -1), new Point(0, 2)),
                 new LineSegment(new Point(-1, 1), new Point(2, -2))
         };
         
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
         
         assertEquals(2, collinearPoints.numberOfSegments());
-        assertTrue(areSameSegments(segments, collinearPoints.segments()));
+        LineSegment[] resultSegments = collinearPoints.segments();
+        assertTrue(String.format("Expected %s, but was %s", Arrays.toString(expectedSegments),
+                                                            Arrays.toString(resultSegments)),
+                    areSameSegments(expectedSegments, resultSegments));
     }
     
     private void test5HorizontalPoints(){
         final String testFile = PATH + "input5-horizontal.txt";
-        final LineSegment[] expectedSegments = new LineSegment[]{
-                new LineSegment(new Point(-1, 0), new Point(2,0)),
-                new LineSegment(new Point(0, 0), new Point(3,0)),
-        };
+        final Point p = new Point(-1, 0);
+        final Point q = new Point(3, 0);
+        final LineSegment expectedSegment = new LineSegment(p, q);
         
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
         
-        assertEquals(2, collinearPoints.numberOfSegments());
-        assertTrue(areSameSegments(expectedSegments, collinearPoints.segments()));
+        assertEquals(1, collinearPoints.numberOfSegments());
+        assertTrue(isSameLineSegment(expectedSegment, collinearPoints.segments()[0]));
     }
     private void test5VerticalPoints(){
         final String testFile = PATH + "input5-vertical.txt";
-        final LineSegment[] expectedSegments = new LineSegment[]{
-                new LineSegment(new Point(0, -1), new Point(0,2)),
-                new LineSegment(new Point(0, 0), new Point(0,3)),
-        };
+        final Point p = new Point(0, -1);
+        final Point q = new Point(0, 3);
+        final LineSegment expectedSegment = new LineSegment(p, q);
         
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
         
-        assertEquals(2, collinearPoints.numberOfSegments());
-        assertTrue(areSameSegments(expectedSegments, collinearPoints.segments()));
+        assertEquals(1, collinearPoints.numberOfSegments());
+        assertTrue(isSameLineSegment(expectedSegment, collinearPoints.segments()[0]));
     }
     private void test5DiagonalPoints(){
         final String testFile = PATH + "input5-diag.txt";
-        final LineSegment[] expectedSegments = new LineSegment[]{
-                new LineSegment(new Point(-1, -1), new Point(2,2)),
-                new LineSegment(new Point(0, 0), new Point(3,3)),
-        };
+        final Point p = new Point(-1, -1);
+        final Point q = new Point(3, 3);
+        final LineSegment expectedSegment = new LineSegment(p, q);
         
         Point[] points = readTestFile(testFile);
-        BruteCollinearPoints collinearPoints = new BruteCollinearPoints(points);
+        FastCollinearPoints collinearPoints = new FastCollinearPoints(points);
         
-        assertEquals(2, collinearPoints.numberOfSegments());
-        assertTrue(areSameSegments(expectedSegments, collinearPoints.segments()));
+        assertEquals(1, collinearPoints.numberOfSegments());
+        assertTrue(isSameLineSegment(expectedSegment, collinearPoints.segments()[0]));
     }
     
     private Point[] readTestFile(String filename) {
@@ -272,12 +308,23 @@ public class TestBruteCollinearPoints {
         return true;
     }
     
-    private boolean isSameLineSegment(LineSegment seg1, LineSegment seg2) {
-        if((seg1.p.compareTo(seg2.p) == 0 && seg1.q.compareTo(seg2.q) == 0) ||
-            (seg1.p.compareTo(seg2.q) == 0) && seg1.q.compareTo(seg2.p) == 0) {
-            return true;
+    private boolean isSameLineSegment(LineSegment s1, LineSegment s2) {
+        return s1.compareTo(s2) == 0;
+    }
+    
+    private boolean isSameArray(Point[] arr1, Point[] arr2) {
+        if(arr1 == null || arr2 == null) {
+            return false;
         }
-        return false;
+        if(arr1.length != arr2. length) {
+            return false;
+        }
+        for (int i = 0; i < arr1.length; i++) {
+            if(arr1[i].compareTo(arr2[i]) != 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

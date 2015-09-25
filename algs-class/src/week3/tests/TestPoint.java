@@ -1,8 +1,10 @@
-package week3;
+package week3.tests;
 
 import java.util.Comparator;
 
 import org.junit.Test;
+
+import week3.Point;
 import static org.junit.Assert.*;
 
 public class TestPoint {
@@ -60,19 +62,19 @@ public class TestPoint {
         Comparator<Point> slopeComparator = p.slopeOrder();
         
         // same point
-        assertEquals(Integer.MIN_VALUE, slopeComparator.compare(p, p));
+        assertEquals(0, slopeComparator.compare(p, p));
         
         
         // colinear vertical
-        assertEquals(Integer.MAX_VALUE, slopeComparator.compare(n, n));
+        assertEquals(0, slopeComparator.compare(n, n));
         Point n2 = new Point(0, 2);
-        assertEquals(Integer.MAX_VALUE, slopeComparator.compare(n, n2));
-        assertEquals(Integer.MAX_VALUE, slopeComparator.compare(n2, n));
+        assertEquals(0, slopeComparator.compare(n, n2));
+        assertEquals(0, slopeComparator.compare(n2, n));
         
-        assertEquals(Integer.MAX_VALUE, slopeComparator.compare(s, s));
+        assertEquals(0, slopeComparator.compare(s, s));
         Point s2 = new Point(0, -2);
-        assertEquals(Integer.MAX_VALUE, slopeComparator.compare(s, s2));
-        assertEquals(Integer.MAX_VALUE, slopeComparator.compare(s2, s));
+        assertEquals(0, slopeComparator.compare(s, s2));
+        assertEquals(0, slopeComparator.compare(s2, s));
         
         // colinear horizontal
         assertEquals(0, slopeComparator.compare(w, w));
