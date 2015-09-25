@@ -14,7 +14,7 @@ public class TestSubset {
     @Test
     public void testSubsetK0() {
         String[] args = new String[] { "0" };
-        String input = "A B C D E F G H I";
+        String input = "A B C D E F G H I ";
 
         String result = executeSubset(args, input);
         assertTrue(result.isEmpty());
@@ -23,7 +23,7 @@ public class TestSubset {
     @Test
     public void testSubsetK2() {
         String[] args = new String[] { "2" };
-        String input = "A B";
+        String input = "A B ";
 
         String result = executeSubset(args, input);
 
@@ -33,7 +33,7 @@ public class TestSubset {
     @Test
     public void testSubsetKN() {
         String[] args = new String[] { "3" };
-        String input = "A B C D E F G H I";
+        String input = "A B C D E F G H I ";
 
         String result = executeSubset(args, input);
 
