@@ -12,23 +12,29 @@ public class TestPointSet {
     private static final String TEST_PATH = System.getenv("TEST_RESOURCES");
     
     @Test
-    public void TestNeighborVerticalPoints() {
+    public void TestNearestNeighbor() {
+        TestNeighborVerticalPoints();
+        TestNeighborHorizontalPoints();
+        TestNeighborDiagonalPoints();
+    }
+    
+    // Tests nearest neighbors with 3 vertica collinear points
+    private void TestNeighborVerticalPoints() {
         TestNeighborVertical1();
         TestNeiborVertical2();
         TestNeiborVertical3();
         TestNeiborVertical4();
     }
-    
-    @Test
-    public void TestNeighborHorizontalPoints() {
+    // Tests nearest neighbors with 3 horizontal collinear points
+    private void TestNeighborHorizontalPoints() {
         TestNeighborHorizontal1();
         TestNeighborHorizontal2();
         TestNeighborHorizontal3();
         TestNeighborHorizontal4();
     }
     
-    @Test
-    public void TestNeighborDiagonalPoints(){
+    // Tests nearest neighbors with 3 points
+    private void TestNeighborDiagonalPoints(){
         TestNeighborDiag1();
         TestNeighborDiag2();
         TestNeighborDiag3();
