@@ -1,9 +1,12 @@
 package week5.tests;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Point2D;
+import edu.princeton.cs.algs4.RectHV;
 
 import week5.PointSET;
 import static org.junit.Assert.*;
@@ -18,7 +21,196 @@ public class TestPointSet {
         TestNeighborDiagonalPoints();
     }
     
-    // Tests nearest neighbors with 3 vertica collinear points
+    @Test
+    public void TestRange() {
+        TestRangeHorizontalPoints();
+        TestRangeVerticalPoints();
+        TestRangeDiagonalPoints();
+    }
+    
+    private void TestRangeHorizontalPoints() {
+        TestHorizontalRange1();
+        TestHorizontalRange2();
+        TestHorizontalRange3();
+        TestHorizontalRange4();
+        TestHorizontalRange5();
+        TestHorizontalRange6();
+    }
+    
+    private void TestRangeVerticalPoints() {
+        TestVerticalRange1();
+        TestVerticalRange2();
+        TestVerticalRange3();
+        TestVerticalRange4();
+        TestVerticalRange5();
+        TestVerticalRange6();
+    }
+    
+    private void TestRangeDiagonalPoints() {
+        TestDiagonalRange1();
+        TestDiagonalRange2();
+        TestDiagonalRange3();
+        TestDiagonalRange4();
+        TestDiagonalRange5();
+        TestDiagonalRange6();
+    }
+    
+    // Tests that two horizontal collinear points are not in range of a rect below them
+    private void TestHorizontalRange1(){
+        final String file = "horizontal2.txt";
+        RectHV rect = new RectHV(0, 0, 1, 0.2);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        assertFalse(points.range(rect).iterator().hasNext());
+    }
+    
+    // Tests that two horizontal collinear points are not in range of a rect above them
+    private void TestHorizontalRange2(){
+        final String file = "horizontal2.txt";
+        RectHV rect = new RectHV(0, 0.3, 1, 1);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        assertFalse(points.range(rect).iterator().hasNext());
+    }
+    
+    // Tests that two horizontal collinear points are not in range of a rect to the left of them
+    private void TestHorizontalRange3(){
+        final String file = "horizontal2.txt";
+        RectHV rect = new RectHV(0, 0, 0.2, 1);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        assertFalse(points.range(rect).iterator().hasNext());
+    }
+    
+    // Tests that two horizontal collinear points are not in range of a rect to the right of them
+    private void TestHorizontalRange4(){
+        final String file = "horizontal2.txt";
+        RectHV rect = new RectHV(0.8, 0, 1, 1);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        assertFalse(points.range(rect).iterator().hasNext());
+    }
+    
+    // Tests that two horizontal collinear points are in range of rect
+    private void TestHorizontalRange5(){
+        final String file = "horizontal2.txt";
+        RectHV rect = new RectHV(0, 0, 1, 1);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        Point2D[] expectedPoints = {new Point2D(0.25, 0.25), new Point2D(0.75, 0.25)};
+        assertTrue(samePointList(Arrays.asList(expectedPoints), points.range(rect)));
+    }
+    
+    // Tests that one of two horizontal collinear points is in range of rect
+    private void TestHorizontalRange6(){
+        final String file = "horizontal2.txt";
+        RectHV rect = new RectHV(0, 0, 0.3, 1);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        Point2D[] expectedPoints = {new Point2D(0.25, 0.25)};
+        assertTrue(samePointList(Arrays.asList(expectedPoints), points.range(rect)));
+    }
+    
+    
+    // Tests that two vertical collinear points are not in range of a rect below them
+    private void TestVerticalRange1(){
+        final String file = "vertical2.txt";
+        RectHV rect = new RectHV(0, 0, 1, 0.2);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        assertFalse(points.range(rect).iterator().hasNext());
+    }
+    
+    // Tests that two vertical collinear points are not in range of a rect above them
+    private void TestVerticalRange2(){
+        final String file = "vertical2.txt";
+        RectHV rect = new RectHV(0, 0.8, 1, 1);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        assertFalse(points.range(rect).iterator().hasNext());
+    }
+    
+    // Tests that two vertical collinear points are not in range of a rect to the left of them
+    private void TestVerticalRange3(){
+        final String file = "vertical2.txt";
+        RectHV rect = new RectHV(0, 0, 0.2, 1);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        assertFalse(points.range(rect).iterator().hasNext());
+    }
+    
+    // Tests that two vertical collinear points are not in range of a rect to the right of them
+    private void TestVerticalRange4(){
+        final String file = "vertical2.txt";
+        RectHV rect = new RectHV(0.3, 0, 1, 1);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        assertFalse(points.range(rect).iterator().hasNext());
+    }
+    
+    // Tests that two vertical collinear points are in range of rect
+    private void TestVerticalRange5(){
+        final String file = "vertical2.txt";
+        RectHV rect = new RectHV(0, 0, 1, 1);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        Point2D[] expectedPoints = {new Point2D(0.25, 0.25), new Point2D(0.25, 0.75)};
+        assertTrue(samePointList(Arrays.asList(expectedPoints), points.range(rect)));
+        
+    }
+    
+    // Tests that one of two vertical collinear points is in range of rect
+    private void TestVerticalRange6(){
+        final String file = "vertical2.txt";
+        RectHV rect = new RectHV(0, 0, 1, 0.3);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        Point2D[] expectedPoints = {new Point2D(0.25, 0.25)};
+        assertTrue(samePointList(Arrays.asList(expectedPoints), points.range(rect)));
+    }
+    
+    // Tests that two diagonal collinear points are not in range of a rect below them
+    private void TestDiagonalRange1(){
+        final String file = "diagonal2.txt";
+        RectHV rect = new RectHV(0, 0, 1, 0.2);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        assertFalse(points.range(rect).iterator().hasNext());
+    }
+    
+    // Tests that two diagonal collinear points are not in range of a rect above them
+    private void TestDiagonalRange2(){
+        final String file = "diagonal2.txt";
+        RectHV rect = new RectHV(0, 0.8, 1, 1);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        assertFalse(points.range(rect).iterator().hasNext());
+    }
+    
+    // Tests that two diagonal collinear points are not in range of a rect to the left of them
+    private void TestDiagonalRange3(){
+        final String file = "diagonal2.txt";
+        RectHV rect = new RectHV(0, 0, 0.2, 1);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        assertFalse(points.range(rect).iterator().hasNext());
+    }
+    
+    // Tests that two diagonal collinear points are not in range of a rect to the right of them
+    private void TestDiagonalRange4(){
+        final String file = "diagonal2.txt";
+        RectHV rect = new RectHV(0.8, 0, 1, 1);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        assertFalse(points.range(rect).iterator().hasNext());
+    }
+    
+    // Tests that two diagonal collinear points are in range of rect
+    private void TestDiagonalRange5(){
+        final String file = "diagonal2.txt";
+        RectHV rect = new RectHV(0, 0, 1, 1);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        Point2D[] expectedPoints = {new Point2D(0.25, 0.25), new Point2D(0.5, 0.5)};
+        assertTrue(samePointList(Arrays.asList(expectedPoints), points.range(rect)));
+        
+    }
+    
+    // Tests that one of two diagonal collinear points is in range of rect
+    private void TestDiagonalRange6(){
+        final String file = "diagonal2.txt";
+        RectHV rect = new RectHV(0, 0, 1, 0.3);
+        PointSET points = readPointsFromFile(TEST_PATH + file);
+        Point2D[] expectedPoints = {new Point2D(0.25, 0.25)};
+        assertTrue(samePointList(Arrays.asList(expectedPoints), points.range(rect)));
+    }
+
+    
+    
+    // Tests nearest neighbors with 3 vertical collinear points
     private void TestNeighborVerticalPoints() {
         TestNeighborVertical1();
         TestNeiborVertical2();
@@ -48,8 +240,8 @@ public class TestPointSet {
     // p in middle of two points. Test that nearest point is below
     private void TestNeighborVertical1() {
         final String file = "vertical2.txt";
-        Point2D point = new Point2D(0, 0.4);
-        Point2D expected = new Point2D(0, 0.25);
+        Point2D point = new Point2D(0.25, 0.4);
+        Point2D expected = new Point2D(0.25, 0.25);
         PointSET points = readPointsFromFile(TEST_PATH + file);
         assertEquals(expected, points.nearest(point));
     }
@@ -57,8 +249,8 @@ public class TestPointSet {
     // p in middle of two points. Test that nearest point is above
     private void TestNeiborVertical2(){
         final String file = "vertical2.txt";
-        Point2D point = new Point2D(0, 0.6);
-        Point2D expected = new Point2D(0, 0.75);
+        Point2D point = new Point2D(0.25, 0.6);
+        Point2D expected = new Point2D(0.25, 0.75);
         PointSET points = readPointsFromFile(TEST_PATH + file);
         assertEquals(expected, points.nearest(point));
     }
@@ -66,8 +258,8 @@ public class TestPointSet {
     // p on top of two points. Test that nearest point is below
     private void TestNeiborVertical3(){
         final String file = "vertical2.txt";
-        Point2D point = new Point2D(0, 1);
-        Point2D expected = new Point2D(0, 0.75);
+        Point2D point = new Point2D(0.25, 1);
+        Point2D expected = new Point2D(0.25, 0.75);
         PointSET points = readPointsFromFile(TEST_PATH + file);
         assertEquals(expected, points.nearest(point));
     }
@@ -75,8 +267,8 @@ public class TestPointSet {
     // p below two points. Test that nearest point is above
     private void TestNeiborVertical4(){
         final String file = "vertical2.txt";
-        Point2D point = new Point2D(0, 0);
-        Point2D expected = new Point2D(0, 0.25);
+        Point2D point = new Point2D(0.25, 0);
+        Point2D expected = new Point2D(0.25, 0.25);
         PointSET points = readPointsFromFile(TEST_PATH + file);
         assertEquals(expected, points.nearest(point));
     }
@@ -121,7 +313,7 @@ public class TestPointSet {
     private void TestNeighborDiag1() {
         final String file = "diagonal2.txt";
         Point2D point = new Point2D(0.20, 0.20);
-        Point2D expected = new Point2D(0, 0);
+        Point2D expected = new Point2D(0.25, 0.25);
         PointSET points = readPointsFromFile(TEST_PATH + file);
         assertEquals(expected, points.nearest(point));
     }
@@ -129,7 +321,7 @@ public class TestPointSet {
     // p is collinear in the middle of two points. Test that nearest point is right
     private void TestNeighborDiag2() {
         final String file = "diagonal2.txt";
-        Point2D point = new Point2D(0.3, 0.3);
+        Point2D point = new Point2D(0.4, 0.4);
         Point2D expected = new Point2D(0.5, 0.5);
         PointSET points = readPointsFromFile(TEST_PATH + file);
         assertEquals(expected, points.nearest(point));
@@ -138,7 +330,7 @@ public class TestPointSet {
     // p is in middle of two points and forms a triangle. Test that nearest point is top
     private void TestNeighborDiag3() {
         final String file = "diagonal2.txt";
-        Point2D point = new Point2D(0.5, 0.1);
+        Point2D point = new Point2D(0.75, 0.1);
         Point2D expected = new Point2D(0.5, 0.5);
         PointSET points = readPointsFromFile(TEST_PATH + file);
         assertEquals(expected, points.nearest(point));
@@ -147,8 +339,8 @@ public class TestPointSet {
     // p is in middle of two points and forms a triangle. Test that nearest point is left
     private void TestNeighborDiag4() {
         final String file = "diagonal2.txt";
-        Point2D point = new Point2D(0.4, 0);
-        Point2D expected = new Point2D(0, 0);
+        Point2D point = new Point2D(0.4, 0.25);
+        Point2D expected = new Point2D(0.25, 0.25);
         PointSET points = readPointsFromFile(TEST_PATH + file);
         assertEquals(expected, points.nearest(point));
     }
@@ -200,6 +392,23 @@ public class TestPointSet {
             points.insert(new Point2D(in.readDouble(), in.readDouble()));
         }
         return points;
+    }
+    
+    private boolean samePointList(Iterable<Point2D> expected, Iterable<Point2D> result) {
+        boolean match = false;
+        for (Point2D expectedPoint : expected) {
+            match = false;
+            for (Point2D resultPoint : result) {
+                if(expectedPoint.compareTo(resultPoint) == 0) {
+                    match = true;
+                    break;
+                }
+            }
+            if(!match) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
