@@ -13,6 +13,7 @@ package week5.tests;
  *
  ******************************************************************************/
 
+import week5.KdTree;
 import week5.PointSET;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Point2D;
@@ -28,12 +29,12 @@ public class NearestNeighborVisualizer {
 
         // initialize the two data structures with point from standard input
         PointSET brute = new PointSET();
-        //KdTree kdtree = new KdTree();
+        KdTree kdtree = new KdTree();
         while (!in.isEmpty()) {
             double x = in.readDouble();
             double y = in.readDouble();
             Point2D p = new Point2D(x, y);
-            //kdtree.insert(p);
+            kdtree.insert(p);
             brute.insert(p);
         }
 
@@ -58,7 +59,7 @@ public class NearestNeighborVisualizer {
 
             // draw in blue the nearest neighbor (using kd-tree algorithm)
             StdDraw.setPenColor(StdDraw.BLUE);
-            //kdtree.nearest(query).draw();
+            kdtree.nearest(query).draw();
             StdDraw.show(0);
             StdDraw.show(40);
         }

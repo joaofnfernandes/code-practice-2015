@@ -1,3 +1,4 @@
+package week5.tests;
 /******************************************************************************
  *  Compilation:  javac KdTreeVisualizer.java
  *  Execution:    java KdTreeVisualizer
@@ -8,6 +9,7 @@
  *
  ******************************************************************************/
 
+import week5.KdTree;
 import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.RectHV;
 import edu.princeton.cs.algs4.StdDraw;

@@ -58,6 +58,9 @@ public class PointSET {
         if(rect == null) {
             throw new NullPointerException("Can't compare with null");
         }
+        if(rect.xmin() > rect.xmax() || rect.ymin() > rect.ymax()) {
+            throw new IllegalArgumentException("Invalid rectangle");
+        }
         Queue<Point2D> pointsInRectangle = new Queue<Point2D>();
         for (Point2D point : points) {
             if(rect.distanceTo(point) == 0) {
@@ -79,7 +82,11 @@ public class PointSET {
             for (Point2D point : points) {
                 pointsByDistance.add(point);
             }
-            return pointsByDistance.first();
+            Point2D nearestPoint = null;
+            if(!pointsByDistance.isEmpty()) {
+                nearestPoint = pointsByDistance.first();
+            }
+            return nearestPoint;
         }
     }
 
