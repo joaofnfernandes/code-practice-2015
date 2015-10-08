@@ -1,5 +1,6 @@
 package week5;
 
+import java.util.Comparator;
 import java.util.TreeSet;
 
 import edu.princeton.cs.algs4.Point2D;
@@ -15,7 +16,7 @@ import edu.princeton.cs.algs4.RectHV;
  * it should support nearest() and range() in time proportional to the number of points in the set.
  */
 public class PointSET {
-    TreeSet<Point2D> points;
+    private TreeSet<Point2D> points;
     
     // construct an empty set of points
     public PointSET(){
@@ -78,7 +79,8 @@ public class PointSET {
         if(points.isEmpty()) {
             return null;
         } else {
-            TreeSet<Point2D> pointsByDistance = new TreeSet<Point2D>(p.distanceToOrder());
+            // todo: don't use distanceTo order
+            TreeSet<Point2D> pointsByDistance = new TreeSet<Point2D>(new DistanceToOrder(p));
             for (Point2D point : points) {
                 pointsByDistance.add(point);
             }
@@ -88,6 +90,29 @@ public class PointSET {
             }
             return nearestPoint;
         }
+    }
+    
+    private static class DistanceToOrder implements Comparator<Point2D> {
+
+        private Point2D point;
+        
+        private DistanceToOrder(Point2D point) {
+            this.point = point;
+        }
+        
+        @Override
+        public int compare(Point2D p, Point2D q) {
+            double distanceToP = point.distanceSquaredTo(p);
+            double distanceToQ = point.distanceSquaredTo(q);
+            if(distanceToP < distanceToQ) {
+                return -1;
+            } else if(distanceToP > distanceToQ) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        
     }
 
 }
