@@ -207,57 +207,65 @@ public class KdTree {
         return nearest(root, null, 0, p);
     }
 
-    private Point2D nearest(Node node, Point2D nearestSoFar, int depth,
-            Point2D point) {
+    private Point2D nearest(Node node, Point2D nearestSoFar, int depth, Point2D point) {
         if (node == null) {
             return nearestSoFar;
         }
         if(nearestSoFar == null) {
             nearestSoFar = node.point;
         }
-        double nearestToPoint = nearestSoFar.distanceSquaredTo(point);
-        double nodeRectToPoint = node.rect.distanceSquaredTo(point);
-        double nodePointToPoint;
-        int cmp;
-        Point2D nearestLeft, nearestRight;
+        
+        double distanceToNodeRect = node.rect.distanceSquaredTo(point);
+        double distanceToNearestPoint = nearestSoFar.distanceSquaredTo(point);
+        double distanceToNodePoint, distanceToSubtreePoint;
 
-        // Do we need to explore node and subtrees
-        if (nodeRectToPoint < nearestToPoint) {
-            nodePointToPoint = node.point.distanceSquaredTo(point);
-            // Is node closer
-            if (nodePointToPoint < nearestToPoint) {
+        // Explore node and its subtrees
+        if (distanceToNodeRect < distanceToNearestPoint) {
+            distanceToNodePoint = node.point.distanceSquaredTo(point);
+            // Update nearest point
+            if (distanceToNodePoint < distanceToNearestPoint) {
                 nearestSoFar = node.point;
+                distanceToNearestPoint = distanceToNodePoint;
             }
-            // explore subtrees
+            
+            int cmp;
             if (depth % 2 == 0) {
                 cmp = X_ORDER.compare(point, node.point);
             } else {
                 cmp = Y_ORDER.compare(point, node.point);
             }
 
+            Point2D nearestPointSubtree;
             if (cmp < 0) {
-                // explore left, then right
-                nearestLeft = nearest(node.leftOrBottom, nearestSoFar,
-                        depth + 1, point);
-                nearestRight = nearest(node.RightOrTop, nearestSoFar,
-                        depth + 1, point);
+                // explore left tree
+                nearestPointSubtree = nearest(node.leftOrBottom, nearestSoFar, depth + 1, point);
             } else {
-                // explore right, then left
-                nearestRight = nearest(node.RightOrTop, nearestSoFar,
-                        depth + 1, point);
-                nearestLeft = nearest(node.leftOrBottom, nearestSoFar,
-                        depth + 1, point);
+             // explore right tree
+                nearestPointSubtree = nearest(node.RightOrTop, nearestSoFar, depth + 1, point);
+            }
+            
+            // update nearest point
+            distanceToSubtreePoint = nearestPointSubtree.distanceSquaredTo(point);
+            if(distanceToSubtreePoint < distanceToNearestPoint) {
+                nearestSoFar = nearestPointSubtree;
+                distanceToNearestPoint = distanceToSubtreePoint;
+            }
+            
+            if (cmp < 0) {
+                // explore right tree
+                nearestPointSubtree = nearest(node.RightOrTop, nearestSoFar, depth + 1, point);
+            } else {
+                // explore left tree
+                nearestPointSubtree = nearest(node.leftOrBottom, nearestSoFar, depth + 1, point);
+            }
+            
+            // update nearest point
+            distanceToSubtreePoint = nearestPointSubtree.distanceSquaredTo(point);
+            if(distanceToSubtreePoint < distanceToNearestPoint) {
+                nearestSoFar = nearestPointSubtree;
+                distanceToNearestPoint = distanceToSubtreePoint;
             }
 
-            // Update nearest point
-            nearestToPoint = nearestSoFar.distanceSquaredTo(point);
-            if (nearestLeft != null && nearestLeft.distanceSquaredTo(point) < nearestToPoint) {
-                nearestSoFar = nearestLeft;
-                nearestToPoint = nearestSoFar.distanceSquaredTo(point);
-            }
-            if (nearestRight != null && nearestRight.distanceSquaredTo(point) < nearestToPoint) {
-                nearestSoFar = nearestRight;
-            }
         }
         return nearestSoFar;
     }
