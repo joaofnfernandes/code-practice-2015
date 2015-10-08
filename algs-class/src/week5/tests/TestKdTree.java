@@ -14,6 +14,7 @@ public class TestKdTree {
 
     private static final String TEST_PATH = System.getenv("TEST_RESOURCES");
 
+    
     @Test
     public void TestEmptyTree() {
         KdTree tree = new KdTree();
@@ -66,6 +67,7 @@ public class TestKdTree {
         TestNeighborVerticalPoints();
         TestNeighborHorizontalPoints();
         TestNeighborDiagonalPoints();
+        TestNeighborCircle();
     }
 
     @Test
@@ -74,6 +76,7 @@ public class TestKdTree {
         TestRangeVerticalPoints();
         TestRangeDiagonalPoints();
     }
+    
 
     private void TestRangeHorizontalPoints() {
         TestHorizontalRange1();
@@ -458,6 +461,15 @@ public class TestKdTree {
         Point2D expected = new Point2D(0.25, 0.25);
         KdTree points = readPointsFromFile(TEST_PATH + file);
         assertEquals(expected, points.nearest(point));
+    }
+    
+    // circle with 6 points, test p is closest to top right point
+    public void TestNeighborCircle() {
+        KdTree tree = readPointsFromFile(TEST_PATH + "circle6.txt");
+        Point2D point = new Point2D(0.41, 0.32);
+        Point2D expectedPoint = new Point2D(0.4, 0.4);
+        Point2D result = tree.nearest(point);
+        assertEquals(expectedPoint, result);
     }
 
     private KdTree readPointsFromFile(String filename) {

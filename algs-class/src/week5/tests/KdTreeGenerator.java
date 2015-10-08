@@ -1,3 +1,4 @@
+package week5.tests;
 /******************************************************************************
  *  Compilation:  javac KdTreeGenerator.java
  *  Execution:    java KdTreeGenerator N

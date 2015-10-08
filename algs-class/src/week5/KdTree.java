@@ -216,7 +216,7 @@ public class KdTree {
             nearestSoFar = node.point;
         }
         double nearestToPoint = nearestSoFar.distanceSquaredTo(point);
-        double nodeRectToPoint = node.rect.distanceTo(point);
+        double nodeRectToPoint = node.rect.distanceSquaredTo(point);
         double nodePointToPoint;
         int cmp;
         Point2D nearestLeft, nearestRight;
@@ -230,9 +230,9 @@ public class KdTree {
             }
             // explore subtrees
             if (depth % 2 == 0) {
-                cmp = X_ORDER.compare(node.point, point);
+                cmp = X_ORDER.compare(point, node.point);
             } else {
-                cmp = Y_ORDER.compare(node.point, point);
+                cmp = Y_ORDER.compare(point, node.point);
             }
 
             if (cmp < 0) {

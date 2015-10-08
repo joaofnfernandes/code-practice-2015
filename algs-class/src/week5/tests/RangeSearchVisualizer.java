@@ -13,6 +13,7 @@ package week5.tests;
  *
  ******************************************************************************/
 
+import week5.KdTree;
 import week5.PointSET;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Point2D;
@@ -30,12 +31,12 @@ public class RangeSearchVisualizer {
 
         // initialize the data structures with N points from standard input
         PointSET brute = new PointSET();
-        //KdTree kdtree = new KdTree();
+        KdTree kdtree = new KdTree();
         while (!in.isEmpty()) {
             double x = in.readDouble();
             double y = in.readDouble();
             Point2D p = new Point2D(x, y);
-            //kdtree.insert(p);
+            kdtree.insert(p);
             brute.insert(p);
         }
 
@@ -89,14 +90,14 @@ public class RangeSearchVisualizer {
             // draw the range search results for brute-force data structure in red
             StdDraw.setPenRadius(.03);
             StdDraw.setPenColor(StdDraw.RED);
-            for (Point2D p : brute.range(rect))
-                p.draw();
+            //for (Point2D p : brute.range(rect))
+              //  p.draw();
 
             // draw the range search results for kd-tree in blue
             StdDraw.setPenRadius(.02);
             StdDraw.setPenColor(StdDraw.BLUE);
-            //for (Point2D p : kdtree.range(rect))
-            //    p.draw();
+            for (Point2D p : kdtree.range(rect))
+                p.draw();
 
             StdDraw.show(40);
         }

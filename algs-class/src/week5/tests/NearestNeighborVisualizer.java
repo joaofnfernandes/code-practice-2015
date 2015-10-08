@@ -18,12 +18,14 @@ import week5.PointSET;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdOut;
 
 public class NearestNeighborVisualizer {
 
     public static void main(String[] args) {
         String filename = args[0];
         In in = new In(filename);
+        Point2D nearestKdTree, nearestPointSet;
 
         StdDraw.show(0);
 
@@ -50,18 +52,26 @@ public class NearestNeighborVisualizer {
             StdDraw.setPenColor(StdDraw.BLACK);
             StdDraw.setPenRadius(.01);
             brute.draw();
+            //kdtree.draw();
 
             // draw in red the nearest neighbor (using brute-force algorithm)
             StdDraw.setPenRadius(.03);
             StdDraw.setPenColor(StdDraw.RED);
-            brute.nearest(query).draw();
+            nearestPointSet = brute.nearest(query); 
+            nearestPointSet.draw();
             StdDraw.setPenRadius(.02);
 
             // draw in blue the nearest neighbor (using kd-tree algorithm)
             StdDraw.setPenColor(StdDraw.BLUE);
-            kdtree.nearest(query).draw();
+            nearestKdTree = kdtree.nearest(query);
+            nearestKdTree.draw();
             StdDraw.show(0);
             StdDraw.show(40);
+            if(StdDraw.mousePressed()) {
+                StdOut.printf("%8.6f %8.6f\n", StdDraw.mouseX(), StdDraw.mouseY());
+                StdOut.printf("%8.6f %8.6f\n", nearestPointSet.x(), nearestPointSet.y());
+                StdOut.printf("%8.6f %8.6f\n", nearestKdTree.x(), nearestKdTree.y());
+            }
         }
     }
 }
