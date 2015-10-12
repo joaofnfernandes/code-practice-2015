@@ -1,31 +1,33 @@
 package skyline_problem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.TreeMap;
 
 public class Solution {
-    private static final int LINE_X_START = 0;
-    private static final int LINE_X_END = 1;
-    private static final int LINE_Y = 2;
+    private int LINE_X_START;
+    private int LINE_X_END;
+    private int LINE_Y;
     
-    private TreeMap<Integer, int[]> xCoordToBuiding = new TreeMap<>();
-    TreeMap<Integer, int[]> yCoordToBuilding = new TreeMap<>();
-    ArrayList<int[]> resultList = new ArrayList<>();
-    
-    public static void main(String[] args) {
-        int[][] buildings = {{2,9,10}, {3, 7, 15}, {5, 12, 12}, {15, 20, 10}, {19, 24, 8}};
-        List<int[]> results = new Solution().getSkyline(buildings);
-        for (int[] result : results) {
-            System.out.print(Arrays.toString(result));
-        }
-    }
+    private TreeMap<Integer, int[]> xCoordToBuiding;
+    private TreeMap<Integer, int[]> yCoordToBuilding;
+    private ArrayList<int[]> resultList;
     
     public List<int[]> getSkyline(int[][] buildings) {
+        init();
+        
         initXCoordsToBuilding(buildings);
         scanSkyline();
         return resultList;
+    }
+    
+    private void init() {
+        LINE_X_START = 0;
+        LINE_X_END = 1;
+        LINE_Y = 2;
+        xCoordToBuiding = new TreeMap<>();
+        yCoordToBuilding = new TreeMap<>();
+        resultList = new ArrayList<>();
     }
     
     /*

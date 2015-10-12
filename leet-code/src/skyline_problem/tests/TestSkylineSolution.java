@@ -72,8 +72,9 @@ public class TestSkylineSolution {
     }
 
     private int[][] readBuildingsFromFile(String filename) {
+        Scanner s = null;
         try {
-            Scanner s = new Scanner(new File(filename));
+            s = new Scanner(new File(filename));
             int N = s.nextInt();
             int x1, x2, y;
             int[][] buildings = new int[N][3];
@@ -87,6 +88,10 @@ public class TestSkylineSolution {
         } catch (FileNotFoundException e) {
             fail(String.format("Test file not found:\n%s", filename));
             return null;
+        } finally {
+            if(s != null) {
+                s.close();
+            }
         }
     }
 
