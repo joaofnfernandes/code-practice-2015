@@ -1,16 +1,16 @@
 package excel_col_number;
 
 public class Solution {
+    
+    private static final int ZERO = 'A' - 1;
+    
     public int titleToNumber(String s) {
-        int col = 0, i = 0, unitValue = 0;
-       
-        while(!s.isEmpty()) {
-            unitValue = (s.charAt(s.length() - 1) - 65 + 1);
-            col += (int)Math.pow(26, i) * unitValue;
-            
-            i++;
-            s = s.substring(0, s.length() - 1);
-        }
-        return col;
+        int result = 0, unitValue = 0;
+        s = s.toUpperCase();
+        for(int i = 0; i < s.length(); i++) {
+           unitValue = s.charAt(i) - ZERO;
+           result = 26 * result + unitValue;
+       }
+        return result;
     }
 }
