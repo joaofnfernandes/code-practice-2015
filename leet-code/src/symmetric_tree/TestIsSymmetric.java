@@ -13,6 +13,7 @@ public class TestIsSymmetric {
         TreeNode tree = makeTree(new Integer[]{1});
         Solution sol = new Solution();
         assertTrue(sol.isSymmetric(tree));
+        assertTrue(sol.isSymmetric2(tree));
     }
     
     @Test
@@ -20,6 +21,7 @@ public class TestIsSymmetric {
         TreeNode tree = makeTree(new Integer[]{1,2,2,3,4,4,3});
         Solution sol = new Solution();
         assertTrue(sol.isSymmetric(tree));
+        assertTrue(sol.isSymmetric2(tree));
     }
     
     @Test
@@ -27,6 +29,7 @@ public class TestIsSymmetric {
         TreeNode tree = makeTree(new Integer[]{1,2,2,3,null,null,3});
         Solution sol = new Solution();
         assertTrue(sol.isSymmetric(tree));
+        assertTrue(sol.isSymmetric2(tree));
     }
     
     @Test
@@ -34,6 +37,7 @@ public class TestIsSymmetric {
         TreeNode tree = makeTree(new Integer[]{1,2,2,null,3,3,null});
         Solution sol = new Solution();
         assertTrue(sol.isSymmetric(tree));
+        assertTrue(sol.isSymmetric2(tree));
     }
     
     
@@ -42,6 +46,7 @@ public class TestIsSymmetric {
         TreeNode tree = makeTree(new Integer[]{1,2,null});
         Solution sol = new Solution();
         assertFalse(sol.isSymmetric(tree));
+        assertFalse(sol.isSymmetric2(tree));
     }
     
     @Test
@@ -49,6 +54,7 @@ public class TestIsSymmetric {
         TreeNode tree = makeTree(new Integer[]{1,null,2});
         Solution sol = new Solution();
         assertFalse(sol.isSymmetric(tree));
+        assertFalse(sol.isSymmetric2(tree));
     }
     
     @Test
@@ -56,6 +62,7 @@ public class TestIsSymmetric {
         TreeNode tree = makeTree(new Integer[]{1,2,2,null,3,null,3});
         Solution sol = new Solution();
         assertFalse(sol.isSymmetric(tree));
+        assertFalse(sol.isSymmetric2(tree));
     }
     
     @Test
@@ -63,6 +70,7 @@ public class TestIsSymmetric {
         TreeNode tree = makeTree(new Integer[]{1,2,2,3,null,3,null});
         Solution sol = new Solution();
         assertFalse(sol.isSymmetric(tree));
+        assertFalse(sol.isSymmetric2(tree));
     }
 
     private TreeNode makeTree(Integer[] values) {
