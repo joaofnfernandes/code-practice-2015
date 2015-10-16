@@ -2,6 +2,7 @@ package house_robber;
 
 public class Solution {
     
+    // Iterative solution
     public int rob(int[] nums) {
         int l2 = 0, l1 = 0, current = 0;
         for (int n : nums) {
