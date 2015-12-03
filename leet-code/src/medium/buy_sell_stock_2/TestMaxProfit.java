@@ -8,7 +8,7 @@ import org.junit.rules.Timeout;
 
 public class TestMaxProfit {
     @Rule
-    public Timeout globalTimeout = new Timeout(20);
+    public Timeout globalTimeout = Timeout.millis(20);
     
     @Test
     public void testNoPrices() {
